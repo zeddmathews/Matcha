@@ -4,12 +4,23 @@
 
 const http = require('http');
 const path = require('path');
-const url = require('url');
+// const url = require('url');
 const fs = require('fs');
 
-const server = http.createServer((req, res) => {
-	
+const server = http.createServer((req, res) => {		//req = request, res = response
+	console.log(req.url);
+	if (req.url === '/') {
+		res.writeHead(200, {'Content-Type': 'text/html'});
+		res.write('<h1>Home</h1>');
+		res.end();
+	}
+	// res.write('Is online');
+	// res.end();
 })
+
+const PORT = process.env.PORT || 8888;
+
+server.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
 
 // http.createServer((req, res) => {
 // 	console.log('oi');
