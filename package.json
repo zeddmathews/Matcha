@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/zeddmathews/Matcha/issues"
   },
-  "homepage": "https://github.com/zeddmathews/Matcha#readme"
+  "homepage": "https://github.com/zeddmathews/Matcha#readme",
+  "dependencies": {
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
 }
