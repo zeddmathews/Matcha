@@ -1,0 +1,19 @@
+{
+  "name": "matcha",
+  "version": "1.0.0",
+  "description": "yes",
+  "main": "root.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeddmathews/Matcha.git"
+  },
+  "author": "zmathews",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zeddmathews/Matcha/issues"
+  },
+  "homepage": "https://github.com/zeddmathews/Matcha#readme"
+}
