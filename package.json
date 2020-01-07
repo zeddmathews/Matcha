@@ -4,9 +4,9 @@
   "description": "yes",
   "main": "index.js",
   "scripts": {
-	"test": "echo \"Error: no test specified\" && exit 1",
-	"start": "node index.js",
-	"dev": "nodemon index.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/zeddmathews/Matcha#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
