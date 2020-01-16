@@ -20,11 +20,7 @@ app.listen(port, (err) => {
 });
 
 app.get('/', (req, res) => {
-	// res.render('index', (err, html) => {
-
-	// });
 	res.sendFile(path.join(__dirname+'/index.html'));
-	// res.send(`Root`);
 });
 
 const mongoURI = "mongodb+srv://overStupid:@isPass175@matchacluster-hrimb.mongodb.net/test?retryWrites=true&w=majority";
