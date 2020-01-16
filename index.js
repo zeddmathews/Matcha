@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoDB = require("mongodb");
+const path = require('path');
 const app = express();
 const port = process.env.PORT || 8888;
 
@@ -9,12 +10,21 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended : false }));
 
-app.listen(port, () => {
-	console.log(`Server running on port ${port}`);
+app.listen(port, (err) => {
+	if (err) {
+		throw err;
+	}
+	else {
+		console.log(`Server running on port ${port}`);
+	}
 });
 
 app.get('/', (req, res) => {
-	res.send(`Root`);
+	// res.render('index', (err, html) => {
+
+	// });
+	res.sendFile(path.join(__dirname+'/index.html'));
+	// res.send(`Root`);
 });
 
 const mongoURI = "mongodb+srv://overStupid:@isPass175@matchacluster-hrimb.mongodb.net/test?retryWrites=true&w=majority";
