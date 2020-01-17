@@ -23,6 +23,14 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname+'/index.html'));
 });
 
+app.get('/profile', (req, res) => {
+	res.sendFile(path.join(__dirname+'/profile.html'));
+});
+
+app.get('/match', (req, res) => {
+	res.sendFile(path.join(__dirname+'/match.html'));
+});
+
 const mongoURI = "mongodb+srv://overStupid:@isPass175@matchacluster-hrimb.mongodb.net/test?retryWrites=true&w=majority";
 mongoDB.connect(mongoURI, {
 	useNewUrlParser: true,
