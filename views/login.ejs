@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<% include ./header %>
+<body>
+	<a href = "./">Home</a>
+	<a href = "./register">Register</a>
+	<form action = "../routes/login.js" method = "POST">
+		<input id = "Username/Email" type = "text" name = "Username/Email" placeholder = "Username/Email">
+		<br>
+		<input id = "Password" type = "password" name = "Password" placeholder = "Password">
+		<br>
+		<input id = "Submit" type = "Submit" value = "Login">
+	</form>
+</body>
+</html>
