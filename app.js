@@ -33,6 +33,16 @@ app.use('/users', usersRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 
+app.post('/login', (req, res) => {
+	res.json(JSON.stringify(req.body.UMail));
+	res.send(req.body.Password);
+
+});
+
+app.post('/register', (req, res) => {
+	res.send(req.body.Password);
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
