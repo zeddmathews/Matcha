@@ -8,15 +8,31 @@
 </head>
 <body>
 	<div>
-		<a href = "/">Index</a>
-		<a href = "login">Login</a>
+		<a href = "{{ url_for('index') }}">Index</a>
+		<a href = "{{ url_for('login') }}">Login</a>
 	</div>
 	<form>
-		<input>
+		<input id = "name" type = "text" placeholder = "Name" required>
 
 		<br>
 
-		<input>
+		<input id = "surname" type = "text" placeholder = "Surname" required>
+
+		<br>
+
+		<input id = "username" type = "text" placeholder = "Username" required>
+
+		<br>
+
+		<input id = "email" type = "email" placeholder = "Email" required>
+
+		<br>
+
+		<input id = "password" type = "password" placeholder = "Password" required>
+
+		<br>
+
+		<input id = "confirmPassword" type = "password" placeholder = "Confirm Password" required>
 
 		<br>
 

@@ -8,8 +8,8 @@
 </head>
 <body>
 	<div>
-		<a href = "/">Index</a>
-		<a href = "register">Register</a>
+		<a href = "{{ url_for('index') }}">Index</a>
+		<a href = "{{ url_for('register') }}">Register</a>
 	</div>
 	<form>
 		<input id = "usernameEmail" type = "text" placeholder = "Username/Email">
@@ -20,7 +20,7 @@
 
 		<br>
 
-		<input id = "submit" type = "submit" value = "Login">
+		<input id = "login" type = "submit" value = "Login">
 	</form>
 </body>
 </html>
