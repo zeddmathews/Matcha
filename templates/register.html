@@ -5,34 +5,35 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Register</title>
+	<link rel = "stylesheet" href = "{{url_for('static', filename='css/css.css')}}">
 </head>
 <body>
 	<div>
 		<a href = "{{ url_for('index') }}">Index</a>
 		<a href = "{{ url_for('login') }}">Login</a>
 	</div>
-	<form>
-		<input id = "name" type = "text" placeholder = "Name" required>
+	<form action = "register" method = "post">
+		<input id = "name" type = "text" placeholder = "Name" >
 
 		<br>
 
-		<input id = "surname" type = "text" placeholder = "Surname" required>
+		<input id = "surname" type = "text" placeholder = "Surname" >
 
 		<br>
 
-		<input id = "username" type = "text" placeholder = "Username" required>
+		<input id = "username" type = "text" placeholder = "Username" >
 
 		<br>
 
-		<input id = "email" type = "email" placeholder = "Email" required>
+		<input id = "email" type = "email" placeholder = "Email" >
 
 		<br>
 
-		<input id = "password" type = "password" placeholder = "Password" required>
+		<input id = "password" type = "password" placeholder = "Password" >
 
 		<br>
 
-		<input id = "confirmPassword" type = "password" placeholder = "Confirm Password" required>
+		<input id = "confirmPassword" type = "password" placeholder = "Confirm Password" >
 
 		<br>
 
