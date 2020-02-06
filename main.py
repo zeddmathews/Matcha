@@ -26,6 +26,7 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+	error = None
 	if request.method == 'GET':
 		return render_template('register.html')
 	elif request.method == 'POST':
@@ -39,7 +40,9 @@ def register():
 		stringRegex = "[a-zA-Z]"
 
 		if not re.match(stringRegex, name):
-			print ('fug you')
+			error = 'Invalid string'
+			print('fug you')
+			return render_template('register.html', error=error)
 
 		print ('ifhgihdfiuhg')
 		return redirect(url_for('index'))
