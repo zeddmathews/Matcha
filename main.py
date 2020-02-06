@@ -36,7 +36,10 @@ def register():
 		password = request.form['password']
 		confirmPassword = request.form['confirmPassword']
 
+		stringRegex = "[a-zA-Z]"
 
+		if not re.match(stringRegex, name):
+			print ('fug you')
 
 		print ('ifhgihdfiuhg')
 		return redirect(url_for('index'))
