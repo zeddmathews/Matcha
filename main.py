@@ -1,7 +1,13 @@
 from flask import Flask, render_template, request, redirect, session, url_for
+from flask_mysqldb import MySQL, MySQLdb
 import bcrypt
 
 app = Flask(__name__)
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'flaskdb'
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 @app.route('/')
 def index():
@@ -11,7 +17,7 @@ def index():
 def login():
 	if request.method == 'GET':
 		return render_template('login.html')
-	else:
+	elif request.method == 'POST':
 		user = request.form['usernameEmail']
 		print(user)
 		return redirect(url_for('index'))
@@ -20,7 +26,7 @@ def login():
 def register():
 	if request.method == 'GET':
 		return render_template('register.html')
-	else:
+	elif request.method == 'POST':
 		print ('ifhgihdfiuhg')
 		return redirect(url_for('index'))
 
