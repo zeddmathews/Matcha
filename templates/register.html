@@ -5,26 +5,49 @@
 {% block content %}
 
 	<form action = "register" method = "post">
+		{% if error1 %}
+		<label>{{error1}}</label>
+		<br>
+		{% endif %}
 		<input name = "name" type = "text" placeholder = "Name" >
-
 		<br>
 
+		{% if error2 %}
+		<label>{{error2}}</label>
+		<br>
+		{% endif %}
 		<input name = "surname" type = "text" placeholder = "Surname" >
 
 		<br>
 
+		{% if error3 %}
+		<label>{{error3}}</label>
+		<br>
+		{% endif %}
 		<input name = "username" type = "text" placeholder = "Username" >
 
 		<br>
 
+		{% if error4 %}
+		<label>{{error4}}</label>
+		<br>
+		{% endif %}
 		<input name = "email" type = "email" placeholder = "Email" >
 
 		<br>
 
+		{% if error5 %}
+		<label>{{error5}}</label>
+		<br>
+		{% endif %}
 		<input name = "password" type = "password" placeholder = "Password" >
 
 		<br>
 
+		{% if error6 %}
+		<label>{{error6}}</label>
+		<br>
+		{% endif %}
 		<input name = "confirmPassword" type = "password" placeholder = "Confirm Password" >
 
 		<br>

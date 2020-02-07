@@ -1,4 +1,12 @@
-from flask import Flask, render_template, request, redirect, session, url_for
+from flask import (
+	Flask,
+	render_template,
+	request,
+	redirect,
+	session,
+	url_for,
+	flash
+)
 from flask_mysqldb import MySQL, MySQLdb
 import bcrypt
 import re
@@ -26,7 +34,12 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-	error = None
+	error1 = ''
+	error2 = ''
+	error3 = ''
+	error4 = ''
+	error5 = ''
+	error6 = ''
 	if request.method == 'GET':
 		return render_template('register.html')
 	elif request.method == 'POST':
@@ -39,11 +52,15 @@ def register():
 
 		stringRegex = "[a-zA-Z]"
 
-		if not re.match(stringRegex, name):
-			error = 'Invalid string'
-			print('fug you')
-			return render_template('register.html', error=error)
 
+		if not re.match(stringRegex, name):
+			error1 = 'Invalid string'
+			print('fug you')
+			flash('Invalid characters', 'error')
+			return render_template('register.html', error1=error1)
+		elif not re.match(stringRegex, surname):
+			error2 = 'Invalid string'
+			return render_template('register.html', error2=error2)
 		print ('ifhgihdfiuhg')
 		return redirect(url_for('index'))
 
