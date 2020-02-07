@@ -51,7 +51,8 @@ def register():
 		confirmPassword = request.form['confirmPassword']
 
 		stringRegex = "[a-zA-Z]"
-
+		usernameRegex = "[a-zA-Z0-9_.]"
+		emailRegex = "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
 
 		if not re.match(stringRegex, name):
 			error1 = 'Invalid string'
@@ -61,6 +62,12 @@ def register():
 		elif not re.match(stringRegex, surname):
 			error2 = 'Invalid string'
 			return render_template('register.html', error2=error2)
+		elif not re.match(usernameRegex, username):
+			error3 = 'Invalid username'
+			return render_template('register.html', error3=error3)
+		elif not re.match(emailRegex, email):
+			error4 = 'Invalid email'
+			return render_template('register.html', error4=error4)
 		print ('ifhgihdfiuhg')
 		return redirect(url_for('index'))
 
