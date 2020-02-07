@@ -14,13 +14,16 @@ import re
 app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'flaskdb'
+app.config['MYSQL_PASSWORD'] = 'anything'
+app.config['MYSQL_PORT'] = 8080
+app.config['MYSQL_DB'] = 'matcha'
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
 
 @app.route('/')
 def index():
+	cur = mysql.connection.cursor()
+	cur.execute(''' CREATE TABLE users (id integer, name VARCHAR(200))''')
 	return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -75,8 +78,8 @@ def register():
 		elif (password != confirmPassword):
 			error6 = 'Passwords do not match'
 			return render_template('register.html', error6=error6)
-		print ('ifhgihdfiuhg')
-		return redirect(url_for('index'))
+		else:
+			return redirect(url_for('index'))
 
 if __name__ == '__main__':
 	app.secret_key = "123@fuckYou"
