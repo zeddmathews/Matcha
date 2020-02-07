@@ -53,6 +53,7 @@ def register():
 		stringRegex = "[a-zA-Z]"
 		usernameRegex = "[a-zA-Z0-9_.]"
 		emailRegex = "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
+		passwordRegex = "[a-zA-z0-9_.$#@!,*^%?]"
 
 		if not re.match(stringRegex, name):
 			error1 = 'Invalid string'
@@ -68,6 +69,12 @@ def register():
 		elif not re.match(emailRegex, email):
 			error4 = 'Invalid email'
 			return render_template('register.html', error4=error4)
+		elif not re.match(passwordRegex, password):
+			error5 = 'Invalid password'
+			return render_template('register.html', error5=error5)
+		elif (password != confirmPassword):
+			error6 = 'Passwords do not match'
+			return render_template('register.html', error6=error6)
 		print ('ifhgihdfiuhg')
 		return redirect(url_for('index'))
 
