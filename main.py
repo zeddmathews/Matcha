@@ -7,23 +7,22 @@ from flask import (
 	url_for,
 	flash
 )
-from flask_mysqldb import MySQL, MySQLdb
+from pymongo import MongoClient
 import bcrypt
 import re
+from six.moves.urllib.parse import urlparse
 
 app = Flask(__name__)
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'anything'
-app.config['MYSQL_PORT'] = 8080
-app.config['MYSQL_DB'] = 'matcha'
-app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
-mysql = MySQL(app)
+
+# myClient = MongoClient()
+# dblist = myClient.list_database_names()
+# if 'mydb' in dblist:
+# 	print ('The db exists')
+# else:
+# 	myDB = myClient['mydb']
 
 @app.route('/')
 def index():
-	cur = mysql.connection.cursor()
-	cur.execute(''' CREATE TABLE users (id integer, name VARCHAR(200))''')
 	return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
