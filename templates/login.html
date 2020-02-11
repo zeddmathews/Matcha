@@ -1,0 +1,19 @@
+{% extends 'template.html' %}
+
+{% block title %} Login {% endblock %}
+
+{% block content %}
+
+	<form action = "login" method = "post">
+		<input name = "usernameEmail" type = "text" placeholder = "Username/Email">
+
+		<br>
+
+		<input name = "password" type = "password" placeholder = "Password">
+
+		<br>
+
+		<input name = "login" type = "submit" value = "Login">
+	</form>
+
+{% endblock %}
