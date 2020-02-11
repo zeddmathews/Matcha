@@ -6,7 +6,7 @@
 
 	<form action = "register" method = "post">
 		{% if error1 %}
-		<input name = "name" type = "text" placeholder = "{% error1 %}" >
+		<input name = "name" type = "text" placeholder = "{{ error1 }}" >
 		<br>
 		{% else %}
 		<input name = "name" type = "text" placeholder = "Name" >
@@ -14,44 +14,44 @@
 		{% endif %}
 
 		{% if error2 %}
-		<label>{{error2}}</label>
+		<input name = "surname" type = "text" placeholder = "{{ error2 }}" >
+		<br>
+		{% else %}
+		<input name = "surname" type = "text" placeholder = "Surname" >
 		<br>
 		{% endif %}
-		<input name = "surname" type = "text" placeholder = "Surname" >
-
-		<br>
 
 		{% if error3 %}
-		<label>{{error3}}</label>
+		<input name = "username" type = "text" placeholder = "{{ error3 }}" >
+		<br>
+		{% else %}
+		<input name = "username" type = "text" placeholder = "Username" >
 		<br>
 		{% endif %}
-		<input name = "username" type = "text" placeholder = "Username" >
-
-		<br>
 
 		{% if error4 %}
-		<label>{{error4}}</label>
+		<input name = "email" type = "email" placeholder = "{{ error4 }}" >
+		<br>
+		{% else %}
+		<input name = "email" type = "email" placeholder = "Email" >
 		<br>
 		{% endif %}
-		<input name = "email" type = "email" placeholder = "Email" >
-
-		<br>
 
 		{% if error5 %}
-		<label>{{error5}}</label>
+		<input name = "password" type = "password" placeholder = "{{ error5 }}" >
+		<br>
+		{% else %}
+		<input name = "password" type = "password" placeholder = "Password" >
 		<br>
 		{% endif %}
-		<input name = "password" type = "password" placeholder = "Password" >
-
-		<br>
 
 		{% if error6 %}
-		<label>{{error6}}</label>
+		<input name = "confirmPassword" type = "password" placeholder = "{{ error6 }}" >
+		<br>
+		{% else %}
+		<input name = "confirmPassword" type = "password" placeholder = "Confirm Password" >
 		<br>
 		{% endif %}
-		<input name = "confirmPassword" type = "password" placeholder = "Confirm Password" >
-
-		<br>
 
 		<input name = "register" type = "submit" value = "Register">
 	</form>
