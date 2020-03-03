@@ -1,0 +1,51 @@
+{% extends 'navbar.html' %}
+{% block html_head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+{% block body %}
+<div class="right">
+    <h1>Account Settings</h1>
+    <div class="tab">
+        <button class="tablinks active" onclick="openSetting(event, 'profile')">Profile</button>
+        <button class="tablinks" onclick="openSetting(event, 'password')">Password</button>
+    </div>
+
+    <div id="profile" class="tabcontent" style="display: block;">
+        <label>Username</label>
+        <input type="text" name="new-username"/><br/>
+        <label>Email Address</label>
+        <input type="email" name="new-email"/><br/>
+        <input type="checkbox" name="notification"/>
+        <label>Send Email Notifications</label><br/>
+        <label>First Name</label>
+        <input type="text" name="new-firstname"/><br/>
+        <label>Last Name</label>
+        <input type="text" name="new-lastname"/><br/>
+        <input type="submit" name="submit"/>
+    </div>
+    <div id="password" class="tabcontent" style="display: none;">
+        <label>Current Password</label>
+        <input type="password" name="current-password"/><a href="">Forgot Password</a><br/>
+        <label>New Password</label>
+        <input type="password" name="new-password"/><br/>
+        <label>Retype Password</label>
+        <input type="password" name="retype-password"/><br/>
+        <input type="submit" name="submit"/>
+    </div>
+</div>
+        <script>
+            function openSetting(evnt, setting) {
+				var i, tabcontent, tablinks;
+				tabcontent = document.getElementsByClassName("tabcontent");
+				for (i = 0; i < tabcontent.length; i++) {
+					tabcontent[i].style.display = "none";
+				}
+				tablinks = document.getElementsByClassName("tablinks");
+				for (i = 0; i < tablinks.length; i++) {
+					tablinks[i].className = tablinks[i].className.replace(" active", "");
+				}
+				document.getElementById(setting).style.display = "block";
+				evnt.currentTarget.className += " active";
+			}
+        </script>
+{% endblock %}
