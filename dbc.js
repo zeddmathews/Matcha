@@ -17,6 +17,10 @@ connection.connect((err) => {
 		console.log(err);
 	}
 	else {
+		// let query = 'CREATE DATABASE IF NOT EXISTS matcha';
+		// connection.query(query, () => {
+		// 	console.log(``);
+		// });
 		console.log(`Connected to database: ${options.database}`);
 	}
 });
