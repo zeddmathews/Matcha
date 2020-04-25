@@ -32,7 +32,7 @@ connection.connect((err) => {
 				throw err;
 			}
 			else {
-				console.log(`Database connection ${on}`);
+				console.log(`Database connection: ${on}`);
 				connection.query(use, (err) => {
 					if (err) {
 						console.log(`Database selection: ${off}`);
@@ -88,7 +88,6 @@ connection.connect((err) => {
 				});
 			}
 		});
-		console.log(`Connected to database: ${db}`);
 	}
 });
 
