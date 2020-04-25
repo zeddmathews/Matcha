@@ -19,7 +19,7 @@ connection.connect((err) => {
 	let dbQuery = `CREATE DATABASE IF NOT EXISTS ${db}`;
 	let use = `USE ${db}`;
 	let usersTable = `CREATE TABLE IF NOT EXISTS users`;
-	let matchedTable = `CREATE TABLE IF NOT EXISTS matched`;
+	// let matchedTable = `CREATE TABLE IF NOT EXISTS matched`;
 	if (err) {
 		console.log(`Initial connection: ${off}`);
 		throw err;
@@ -43,16 +43,29 @@ connection.connect((err) => {
 						connection.query(`${usersTable}(`
 						+ `id INT NOT NULL AUTO_INCREMENT,`
 						+ `PRIMARY KEY(id),`
-						+ `name VARCHAR(100),`
-						+ `surname VARCHAR(100),`
-						+ `email VARCHAR(100),`
-						+ `username VARCHAR(100),`
-						+ `password VARCHAR(200),`
-						+ `high_priority VARCHAR(200),`
-						+ `medium_priority VARCHAR(200),`
-						+ `low_priority VARCHAR(200),`
-						+ `rating VARCHAR(100),`
-						+ `status VARCHAR(100),`
+						+ `name VARCHAR(100) NOT NULL,`
+						+ `surname VARCHAR(100) NOT NULL,`
+						+ `email VARCHAR(100) NOT NULL UNIQUE,`
+						+ `username VARCHAR(100) NOT NULL UNIQUE,`
+						+ `notifications INT(10) NOT NULL,`
+						+ `verified INT(10) NOT NULL,`
+						+ `token INT(10) NOT NULL,`
+						+ `password VARCHAR(200) NOT NULL,`
+						+ `age INT(10),`
+						+ `gender VARCHAR(200),`
+						+ `sexualOrientation VARCHAR(200),`
+						+ `highPriority VARCHAR(200),`
+						+ `mediumPriority VARCHAR(200),`
+						+ `lowPriority VARCHAR(200),`
+						+ `city VARCHAR(200),`
+						+ `latitude INT(20),`
+						+ `longitude INT(20),`
+						+ `currentCityLog INT(20),`
+						+ `differentCityLog INT(20),`
+						+ `rating INT(10),`
+						+ `reported INT(10),`
+						+ `temporaryBan VARCHAR(100),`
+						+ `permanentBan VARCHAR(100)`
 						+ `)`, (err) => {
 							if (err) {
 								console.log(`Users table connection: ${off}`);
@@ -60,23 +73,22 @@ connection.connect((err) => {
 							}
 							else {
 								console.log(`Users table connection: ${on}`);
-								connection.query(`${matchedTable}(`
-								+ `PRIMARY KEY(id),`
-								+ `username VARCHAR(100)`
-								+ `)`, (err) => {
-									if (err) {
-										console.log(`Matched table connection: ${off}`);
-										throw err;
-									}
-								});
+								// connection.query(`${matchedTable}(`
+								// + `PRIMARY KEY(id),`
+								// + `username VARCHAR(100)`
+								// + `)`, (err) => {
+								// 	if (err) {
+								// 		console.log(`Matched table connection: ${off}`);
+								// 		throw err;
+								// 	}
+								// });
 							}
 						});
 					}
 				});
-				console.log(`Database successfully created`);
 			}
 		});
-		console.log(`Connected to database: ${options.database}`);
+		console.log(`Connected to database: ${db}`);
 	}
 });
 
