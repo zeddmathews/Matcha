@@ -22,7 +22,7 @@ const session = expressSession({
 
 const loginRedirect = (req, res, next) => {
 	if (!req.session.userID) {
-		res.render('login', {loginStatus : 'logged_out'});
+		res.redirect('login');
 	}
 	else {
 		next();
@@ -31,7 +31,7 @@ const loginRedirect = (req, res, next) => {
 
 const loggedInRedirect = (req, res, next) => {
 	if (req.session.userID) {
-		res.render('index', {loginStatus : 'logged_in'});
+		res.redirect('index');
 	}
 };
 
@@ -47,11 +47,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session);
 
 app.use('/', indexRouter);
-app.use('/users', loginRedirect, usersRouter);
-app.use('/login', loggedInRedirect, loginRouter);
-app.use('/signup', loggedInRedirect, signupRouter);
-app.use('/profile',loginRedirect, profileRouter);
-app.use('/chat', loginRedirect, chatRouter);
+app.use('/users', /*loginRedirect,*/ usersRouter);
+app.use('/login', /*loggedInRedirect,*/ loginRouter);
+app.use('/signup', /*loggedInRedirect,*/ signupRouter);
+app.use('/profile', /*loginRedirect,*/ profileRouter);
+app.use('/chat', /*loginRedirect,*/ chatRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -69,7 +69,7 @@ app.use(function(err, req, res, next) {
 	if (res.status === 404) {
 		res.render('404');
 	}
-	else {
+	else if (500) {
 		res.render('500');
 	}
 });
