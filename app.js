@@ -67,10 +67,10 @@ app.use(function(err, req, res, next) {
 	// render the error page
 	res.status(err.status || 500);
 	if (res.status === 404) {
-		res.render('404');
+		res.render('404', { title : '404' });
 	}
 	else if (500) {
-		res.render('500');
+		res.render('500', { title : '500' });
 	}
 });
 
