@@ -3,7 +3,10 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('signup', { title: 'Signup', loginStatus: req.session.userID ? 'logged_in' : 'logged_out', errors : [] });
+  res.render('signup', {
+	  title: 'Signup',
+	  loginStatus: req.session.userID ? 'logged_in' : 'logged_out',
+	  errors : [] });
 });
 
 router.post('/create', (req, res) => {
@@ -96,24 +99,42 @@ router.post('/create', (req, res) => {
 	}
 	// email field
 	if (email.length > 0) {
-
+		if (!email.match(emailRegex)) {
+			emailErrors[`casing`] = `Invlaid email address`;
+		}
+		else if (email.match(emailRegex)) {
+			emailErrors[`noErrors`] = `Yes`;
+		}
 	}
 	else {
 		emailErrors[`length`] = `This field cannot be blank`;
 	}
 	// password field
 	if (password.length > 0) {
-
+		if (!password.match(passwordRegex)) {
+			passwordErrors[`casing`] = `Minimum 8 characters comprised of: 1 uppercase and 1 lowercase character, 1 number, and 1 special character`;
+		}
+		if (password.length > 15) {
+			passwordErrors[`length`] = `Password exceeds maximum number of characters (15)`;
+		}
+		else if (password.match(passwordRegex) && password.length <= 15) {
+			passwordErrors[`noErrors`] = `Yes`;
+			// confirmPassword field
+			if (confirmPassword.length > 0) {
+				if (confirmPassword !== password) {
+					confirmPasswordErrors[`casing`] = `Passwords do not match`;
+				}
+				else if (confirmPassword === password) {
+					confirmPasswordErrors[`noErrors`] = `Yes`;
+				}
+			}
+			else {
+				confirmPasswordErrors[`length`] = `This field cannot be blank`;
+			}
+		}
 	}
 	else {
 		passwordErrors[`length`] = `This field cannot be blank`;
-	}
-	// confirmPassword field
-	if (confirmPassword.length > 0) {
-
-	}
-	else {
-		confirmPasswordErrors[`length`] = `This field cannot be blank`;
 	}
 	let errors = [
 		nameErrors,
@@ -123,6 +144,21 @@ router.post('/create', (req, res) => {
 		passwordErrors,
 		confirmPasswordErrors
 	];
+	console.log(errors);
+	if (nameErrors.noErrors === `` || surnameErrors.noErrors === `` || usernameErrors.noErrors === `` || emailErrors.noErrors === `` || passwordErrors.noErrors === `` || confirmPasswordErrors.noErrors === ``) {
+		res.render(`signup`, {
+			title : `Signup`,
+			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+			errors : errors.array()
+		});
+	}
+	else {
+		// input database inserting things
+		res.render(`login`, {
+			title : `Login`,
+			verify : `Please verify your email address`
+		})
+	}
 });
 
 module.exports = router;

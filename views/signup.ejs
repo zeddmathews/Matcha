@@ -7,6 +7,6 @@
 <body>
 	<%- include('partials/all_pages/navbar') -%>
 	<h3>Make your face</h3>
-	<%- include('partials/signup/signup_form') -%>
+	<%- include('partials/signup/signup_form', { title : title, loginStatus : loginStatus, errors : errors }) -%>
 </body>
 </html>
