@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressSession = require('express-session');
 
-var db = require('./dbc').connection;
+var connection = require('./dbc').connection;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');

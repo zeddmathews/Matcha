@@ -12,6 +12,9 @@
 		<% if (nameErrors.casing !== '') { %>
 			<%= nameErrors.casing %>
 		<% } %>
+		<% if (nameErrors.dbErrors !== '') { %>
+			<%= nameErrors.dbErrors %>
+		<% } %>
 		<br>
 		<input type="text" name="name" id="name" placeholder="Name">
 		<br>
@@ -20,6 +23,9 @@
 		<% } %>
 		<% if (surnameErrors.casing !== '') { %>
 			<%= surnameErrors.casing %>
+		<% } %>
+		<% if (surnameErrors.dbErrors !== '') { %>
+			<%= surnameErrors.dbErrors %>
 		<% } %>
 		<br>
 		<input type="text" name="surname" id="surname" placeholder="Surname">
@@ -30,6 +36,9 @@
 		<% if (usernameErrors.casing !== '') { %>
 			<%= usernameErrors.casing %>
 		<% } %>
+		<% if (usernameErrors.dbErrors !== '') { %>
+			<%= usernameErrors.dbErrors %>
+		<% } %>
 		<br>
 		<input type="text" name="username" id="username" placeholder="Username">
 		<br>
@@ -38,6 +47,9 @@
 		<% } %>
 		<% if (emailErrors.casing !== '') { %>
 			<%= emailErrors.casing %>
+		<% } %>
+		<% if (emailErrors.dbErrors !== '') { %>
+			<%= emailErrors.dbErrors %>
 		<% } %>
 		<br>
 		<input type="email" name="email" id="email" placeholder="Email">

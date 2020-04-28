@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var connection = require('../dbc').connection;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -27,21 +28,25 @@ router.post('/create', (req, res) => {
 		fieldLength : ``,
 		casing : ``,
 		noErrors : `No`,
+		dbErrors : ``
 	};
 	let surnameErrors = {
 		fieldLength : ``,
 		casing : ``,
-		noErrors : `No`
+		noErrors : `No`,
+		dbErrors : ``
 	};
 	let usernameErrors = {
 		fieldLength : ``,
 		casing : ``,
-		noErrors : `No`
+		noErrors : `No`,
+		dbErrors : ``
 	};
 	let emailErrors = {
 		fieldLength : ``,
 		casing : ``,
-		noErrors : `No`
+		noErrors : `No`,
+		dbErrors : ``
 	};
 	let passwordErrors = {
 		fieldLength : ``,
@@ -170,8 +175,17 @@ router.post('/create', (req, res) => {
 	else if (nameErrors.noErrors === `Yes` && surnameErrors.noErrors === `Yes` && usernameErrors.noErrors === `Yes` && emailErrors.noErrors === `Yes` && passwordErrors.noErrors === `Yes` && confirmPasswordErrors.noErrors === `Yes`) {
 		// input database inserting things
 		// console.log(`noerrors found`);
-
-		res.redirect(`/login`);
+		let findExistingUser = "SELECT * FROM users WHERE email = ?, ";
+		connection.query(findExistingUser, (err, result) => {
+			if (err) {
+				throw err;
+			}
+			else {
+				arrayOfData = JSON.stringify(result);
+				console.log(arrayOfData.id);
+			}
+		});
+		// res.redirect(`/login`);
 	}
 });
 
