@@ -1,9 +1,84 @@
 <form action="/signup/create" method="post">
-	<input type="text" name="name" id="name" placeholder="Name">
+	<% if (errorMessages.length > 0) { %>
+		<% let nameErrors = errorMessages[0] %>
+		<% let surnameErrors = errorMessages[1] %>
+		<% let usernameErrors = errorMessages[2] %>
+		<% let emailErrors = errorMessages[3] %>
+		<% let passwordErrors = errorMessages[4] %>
+		<% let confirmPasswordErrors = errorMessages[5] %>
+		<% if (nameErrors.fieldLength !== '') { %>
+			<%= nameErrors.fieldLength %>
+		<% } %>
+		<% if (nameErrors.casing !== '') { %>
+			<%= nameErrors.casing %>
+		<% } %>
+		<br>
+		<input type="text" name="name" id="name" placeholder="Name">
+		<br>
+		<% if (surnameErrors.fieldLength !== '') { %>
+			<%= surnameErrors.fieldLength %>
+		<% } %>
+		<% if (surnameErrors.casing !== '') { %>
+			<%= surnameErrors.casing %>
+		<% } %>
+		<br>
+		<input type="text" name="surname" id="surname" placeholder="Surname">
+		<br>
+		<% if (usernameErrors.fieldLength !== '') { %>
+			<%= usernameErrors.fieldLength %>
+		<% } %>
+		<% if (usernameErrors.casing !== '') { %>
+			<%= usernameErrors.casing %>
+		<% } %>
+		<br>
+		<input type="text" name="username" id="username" placeholder="Username">
+		<br>
+		<% if (emailErrors.fieldLength !== '') { %>
+			<%= emailErrors.fieldLength %>
+		<% } %>
+		<% if (emailErrors.casing !== '') { %>
+			<%= emailErrors.casing %>
+		<% } %>
+		<br>
+		<input type="email" name="email" id="email" placeholder="Email">
+		<br>
+		<% if (passwordErrors.fieldLength !== '') { %>
+			<%= passwordErrors.fieldLength %>
+		<% } %>
+		<% if (passwordErrors.casing !== '') { %>
+			<%= passwordErrors.casing %>
+		<% } %>
+		<br>
+		<input type="password" name="password" id="password" placeholder="Password">
+		<br>
+		<% if (confirmPasswordErrors.fieldLength !== '') { %>
+			<%= confirmPasswordErrors.fieldLength %>
+		<% } %>
+		<% if (confirmPasswordErrors.casing !== '') { %>
+			<%= confirmPasswordErrors.casing %>
+		<% } %>
+		<br>
+		<input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+		<br>
+	<% } else if (errorMessages.length === 0) { %>
+		<br>
+		<input type="text" name="name" id="name" placeholder="Name">
+	<br>
+	<br>
 	<input type="text" name="surname" id="surname" placeholder="Surname">
+	<br>
+	<br>
 	<input type="text" name="username" id="username" placeholder="Username">
+	<br>
+	<br>
 	<input type="email" name="email" id="email" placeholder="Email">
+	<br>
+	<br>
 	<input type="password" name="password" id="password" placeholder="Password">
+	<br>
+	<br>
 	<input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+	<br>
+	<% } %>
 	<input type="submit" name="signup" id="signup" value="Signup">
 </form>
