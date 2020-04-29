@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var bcrypt = require('bcrypt');
 var connection = require('../dbc').connection;
 
 /* GET home page. */
@@ -214,6 +215,30 @@ router.post('/create', (req, res) => {
 			}
 			else if (emailErrors.dbErrors === `None` && usernameErrors.dbErrors === `None`) {
 				console.log(`Shit be working`);
+				let saltRounds = 10;
+				let hashPassword = bcrypt.hashSync(password, saltRounds);
+				let hashToken = bcrypt.hashSync(username, saltRounds);
+				let createNewUserValues = `name, surname, email, username, notifications, verified, token, password`;
+				let createNewUser = `INSERT INTO users(${createNewUserValues})`;
+				let valuesArray = [
+					name,
+					surname,
+					email,
+					username,
+					1,
+					0,
+					hashToken,
+					hashPassword
+				];
+				connection.query(createNewUser + `VALUES(?, ?, ?, ?, ?, ?, ?, ?)`, valuesArray, (err) => {
+					if (err) {
+						throw err;
+					}
+					else {
+						console.log(`User created`);
+						res.redirect(`/login`);
+					}
+				});
 				// insert into database
 			}
 			// res.redirect(`/login`);
