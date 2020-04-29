@@ -14,8 +14,8 @@ router.post('/create', (req, res) => {
 	// console.log(`dfsgs`);
 	let name = req.body.name.trim().toLowerCase();
 	let surname = req.body.surname.trim().toLowerCase();
-	let username = req.body.username.trim();
 	let email = req.body.email.trim();
+	let username = req.body.username.trim();
 	let password = req.body.password.trim();
 	let confirmPassword = req.body.confirmPassword.trim();
 
@@ -36,13 +36,13 @@ router.post('/create', (req, res) => {
 		noErrors : `No`,
 		dbErrors : ``
 	};
-	let usernameErrors = {
+	let emailErrors = {
 		fieldLength : ``,
 		casing : ``,
 		noErrors : `No`,
 		dbErrors : ``
 	};
-	let emailErrors = {
+	let usernameErrors = {
 		fieldLength : ``,
 		casing : ``,
 		noErrors : `No`,
@@ -93,6 +93,20 @@ router.post('/create', (req, res) => {
 		// console.log(`blankErrors`);
 		surnameErrors[`fieldLength`] = `This field cannot be blank.`;
 	}
+	// email field
+	if (email.length > 0) {
+		// console.log(`emailErrors`);
+		if (!email.match(emailRegex)) {
+			emailErrors[`casing`] = `Invlaid email address.`;
+		}
+		else if (email.match(emailRegex)) {
+			emailErrors[`noErrors`] = `Yes`;
+		}
+	}
+	else {
+		// console.log(`blankErrors`);
+		emailErrors[`fieldLength`] = `This field cannot be blank.`;
+	}
 	// username field
 	if (username.length > 0) {
 		// console.log(`usernameErrors`);
@@ -109,20 +123,6 @@ router.post('/create', (req, res) => {
 	else {
 		// console.log(`blankErrors`);
 		usernameErrors[`fieldLength`] = `This field cannot be blank.`;
-	}
-	// email field
-	if (email.length > 0) {
-		// console.log(`emailErrors`);
-		if (!email.match(emailRegex)) {
-			emailErrors[`casing`] = `Invlaid email address.`;
-		}
-		else if (email.match(emailRegex)) {
-			emailErrors[`noErrors`] = `Yes`;
-		}
-	}
-	else {
-		// console.log(`blankErrors`);
-		emailErrors[`fieldLength`] = `This field cannot be blank.`;
 	}
 	// password field
 	if (password.length > 0) {
@@ -160,8 +160,8 @@ router.post('/create', (req, res) => {
 		let errors = [
 			nameErrors,
 			surnameErrors,
-			usernameErrors,
 			emailErrors,
+			usernameErrors,
 			passwordErrors,
 			confirmPasswordErrors
 		];
@@ -175,50 +175,49 @@ router.post('/create', (req, res) => {
 	else if (nameErrors.noErrors === `Yes` && surnameErrors.noErrors === `Yes` && usernameErrors.noErrors === `Yes` && emailErrors.noErrors === `Yes` && passwordErrors.noErrors === `Yes` && confirmPasswordErrors.noErrors === `Yes`) {
 		// input database inserting things
 		// console.log(`noerrors found`);
-		let findExistingEmail = "SELECT * FROM users WHERE email = ?";
-		let findExistingUsername = "SELECT * FROM users WHERE username = ?";
-		let findEmail = [email];
-		let findUsername = [username];
-		let foundData = {
-			email : ``,
-			username : ``
-		};
-		connection.query(findExistingEmail, findEmail, (err, result) => {
+		// let findExistingEmail = "SELECT * FROM users WHERE email = ?";
+		let findExistingUser = "SELECT * FROM users WHERE username = ? OR email = ?";
+		let replacedValues = [username, email];
+		// let findUsername = [username];
+		connection.query(findExistingUser, replacedValues, (err, result) => {
 			if (err) {
 				throw err;
 			}
 			else {
 				if (result.length === 0) {
-					foundData.email = `None`;
+					emailErrors.dbErrors = `None`;
+					usernameErrors.dbErrors = `None`;
 				}
 				else if (result.length > 0) {
-					foundData.email = `Email has already been taken`;
+					if (email === result[0].email) {
+						emailErrors.dbErrors = `Email has already been taken`;
+					}
+					if (username === result[0].username) {
+						usernameErrors.dbErrors = `Username has already been taken`;
+					}
 				}
 			}
+			if (emailErrors.dbErrors !== `None` || usernameErrors.dbErrors !== `None`) {
+				let errors = [
+					nameErrors,
+					surnameErrors,
+					emailErrors,
+					usernameErrors,
+					passwordErrors,
+					confirmPasswordErrors
+				];
+				res.render(`signup`, {
+					title : `Signup`,
+					loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+					errorMessages : errors
+				});
+			}
+			else if (emailErrors.dbErrors === `None` && usernameErrors.dbErrors === `None`) {
+				console.log(`Shit be working`);
+				// insert into database
+			}
+			// res.redirect(`/login`);
 		});
-		connection.query(findExistingUsername, findUsername, (err, result) => {
-			if (err) {
-				throw err;
-			}
-			else {
-				if (result.length === 0) {
-					foundData.username = `None`;
-				}
-				else if (result.length > 0) {
-					foundData.username = `Username has already been taken`;
-				}
-			}
-		});
-		if (foundData.email === `Email has already been taken`) {
-			emailErrors.dbErrors = `Email has already been taken`;
-		}
-		if (foundData.username === `Username has already been taken`) {
-			usernameErrors.dbErrors = `Username has already been taken`;
-		}
-		else if (foundData.email === `None` && foundData.username === `None`) {
-			// insert into database
-		}
-		// res.redirect(`/login`);
 	}
 });
 
