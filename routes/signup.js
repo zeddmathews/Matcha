@@ -175,16 +175,49 @@ router.post('/create', (req, res) => {
 	else if (nameErrors.noErrors === `Yes` && surnameErrors.noErrors === `Yes` && usernameErrors.noErrors === `Yes` && emailErrors.noErrors === `Yes` && passwordErrors.noErrors === `Yes` && confirmPasswordErrors.noErrors === `Yes`) {
 		// input database inserting things
 		// console.log(`noerrors found`);
-		let findExistingUser = "SELECT * FROM users WHERE email = ?, ";
-		connection.query(findExistingUser, (err, result) => {
+		let findExistingEmail = "SELECT * FROM users WHERE email = ?";
+		let findExistingUsername = "SELECT * FROM users WHERE username = ?";
+		let findEmail = [email];
+		let findUsername = [username];
+		let foundData = {
+			email : ``,
+			username : ``
+		};
+		connection.query(findExistingEmail, findEmail, (err, result) => {
 			if (err) {
 				throw err;
 			}
 			else {
-				arrayOfData = JSON.stringify(result);
-				console.log(arrayOfData.id);
+				if (result.length === 0) {
+					foundData.email = `None`;
+				}
+				else if (result.length > 0) {
+					foundData.email = `Email has already been taken`;
+				}
 			}
 		});
+		connection.query(findExistingUsername, findUsername, (err, result) => {
+			if (err) {
+				throw err;
+			}
+			else {
+				if (result.length === 0) {
+					foundData.username = `None`;
+				}
+				else if (result.length > 0) {
+					foundData.username = `Username has already been taken`;
+				}
+			}
+		});
+		if (foundData.email === `Email has already been taken`) {
+			emailErrors.dbErrors = `Email has already been taken`;
+		}
+		if (foundData.username === `Username has already been taken`) {
+			usernameErrors.dbErrors = `Username has already been taken`;
+		}
+		else if (foundData.email === `None` && foundData.username === `None`) {
+			// insert into database
+		}
 		// res.redirect(`/login`);
 	}
 });
