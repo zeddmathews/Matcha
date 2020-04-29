@@ -4,7 +4,7 @@ var bcrypt = require('bcrypt');
 var connection = require('../dbc').connection;
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
 	res.render('signup', {
 		title: 'Signup',
 		loginStatus: req.session.userID ? 'logged_in' : 'logged_out',
