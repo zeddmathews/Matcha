@@ -81,11 +81,22 @@ router.post('/attempt', (req, res, next) => {
 		let dataCheck = [usernameEmail, usernameEmail];
 		let dataCheckQuery = `SELECT email, username, password FROM users WHERE email = ? OR username = ?`
 		connection.query(dataCheckQuery, dataCheck, (err, results) => {
+			let databaseErrors = [
+				usernameEmailErrors,
+				passwordErrors
+			];
 			if (err) {
 				throw err;
 			}
 			else if (results.length === 0) {
-				console.log(`no hablo engles`);
+				// console.log(`no hablo engles`);
+				usernameEmailErrors.dbErrors = `User not found`;
+				res.render('Login', {
+					title: 'Login',
+					loginStatus: req.session.userID ? 'logged_in' : 'logged_out',
+					errors: databaseErrors,
+					verify: ``
+				});
 			}
 			else if (results.length > 0) {
 				console.log(results[0].password);
@@ -93,9 +104,17 @@ router.post('/attempt', (req, res, next) => {
 				console.log(`Your face`);
 				if (bcrypt.compareSync(password, results[0].password)) {
 					console.log(`Found password mugglefucker`);
+					
 				}
 				else {
 					console.log(`Wrong password bitch`);
+					passwordErrors.dbErrors = `Incorrect password`;
+					res.render('Login', {
+						title: 'Login',
+						loginStatus: req.session.userID ? 'logged_in' : 'logged_out',
+						errors: databaseErrors,
+						verify: ``
+					});
 				}
 			}
 			// console.log(fields);
