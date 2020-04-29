@@ -89,10 +89,9 @@ router.post('/attempt', (req, res, next) => {
 			}
 			else if (results.length > 0) {
 				console.log(results[0].password);
-				console.log(password);
+				// console.log(password);
 				console.log(`Your face`);
-				// let hashComp = bcrypt.hashSync(password, saltRounds);
-				if (bcrypt.compareSync(results[0].password, password)) {
+				if (bcrypt.compareSync(password, results[0].password)) {
 					console.log(`Found password mugglefucker`);
 				}
 				else {
