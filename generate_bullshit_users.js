@@ -10,34 +10,34 @@ let highPriorityArray = ["food", "books", "movies", "series", "anime", "music", 
 let mediumPriorityArray = ["food", "books", "movies", "series", "anime", "music", "games"];
 let lowPriorityArray = ["food", "books", "movies", "series", "anime", "music", "games"];
 let dataArray = [];
-let dataObject = {
-	name : ``,
-	surname : ``,
-	email : ``,
-	username : ``,
-	notifications : ``,
-	verified : ``,
-	token : ``,
-	password : ``,
-	age : ``,
-	gender : ``,
-	sexualOrientation : ``,
-	highPriority : ``,
-	mediumPriority : ``,
-	lowPriority : ``,
-	city : ``,
-	latitude : ``,
-	longitude : ``,
-	rating : ``,
-	reported : ``,
-	temporaryBan : ``,
-	permanentBan : ``
-};
 
 let generateUsers = () => {
-	while (i < 99) {
-		dataObject.name = faker.fake("{{name.firstName}},");
-		dataObject.surname = faker.fake("{{name.lastName}},");
+	while (i < 10) {
+		let dataObject = {
+			name : ``,
+			surname : ``,
+			email : ``,
+			username : ``,
+			notifications : 1,
+			verified : 1,
+			token : ``,
+			password : ``,
+			age : ``,
+			gender : ``,
+			sexualOrientation : ``,
+			highPriority : ``,
+			mediumPriority : ``,
+			lowPriority : ``,
+			city : ``,
+			latitude : ``,
+			longitude : ``,
+			rating : ``,
+			reported : ``,
+			temporaryBan : ``,
+			permanentBan : ``
+		};
+		dataObject.name = faker.fake("{{name.firstName}}");
+		dataObject.surname = faker.fake("{{name.lastName}}");
 		dataObject.email = faker.fake("{{internet.email}}");
 		dataObject.username = faker.fake("{{internet.userName}}");
 		let tokenHash = bcrypt.hashSync(dataObject.name, saltRounds);
@@ -97,37 +97,61 @@ let generateUsers = () => {
 			dataObject.temporaryBan = 0;
 			dataObject.permanentBan = 0;
 		}
-		dataArray[i] = dataObject;
-		// console.log(dataObject);
+		dataArray.push(dataObject);
 		console.log(dataArray[i]);
-		let iterate = 0;
-		connection.query(`INSERT INTO users (`
-			+ `name, surname, email, username, notifications, verified,`
-			+ `token, password, age, gender, sexualOrientation,`
-			+ `highPriority, mediumPriority, lowPriority, city,`
-			+ `latitude, longitude, rating, reported, temporaryBan, permanentBan) VALUES (`
-			+ `${dataArray[iterate].name}, ${dataArray[iterate].surname}, ${dataArray[iterate].email}, ${dataArray[iterate].username}, 1, 1,`
-			+ `${dataArray[iterate].token}, ${dataArray[iterate].password}, ${dataArray[iterate].age}, ${dataArray[iterate].gender}, ${dataArray[iterate].sexualOrientation},`
-			+ `${dataArray[iterate].highPriority}, ${dataArray[iterate].mediumPriority}, ${dataArray[iterate]. lowPriority}, ${dataArray[iterate].city},`
-			+ `${dataArray[iterate].latitude}, ${dataArray[iterate].longitude}, ${dataArray[iterate].rating}, ${dataArray[iterate].reported}, ${dataArray[iterate].temporaryBan, dataArray[iterate].permanentBan})`
-			, (err) => {
+		
+		i += 1;
+	}
+};
+
+generateUsers();
+// console.log(dataArray);
+
+let insert = () => {
+	let iterate = 0;
+	let num = 1;
+	while (iterate < 10) {
+		let stmtValues = `name, surname, email, username, notifications, verified, token, password, age, gender, sexualOrientation, highPriority, mediumPriority, lowPriority, city, latitude, longitude, rating, reported, temporaryBan, permanentBan`;
+		let stmt = `INSERT INTO users(${stmtValues})`;
+		let values = [
+			dataArray[iterate].name,
+			dataArray[iterate].surname,
+			dataArray[iterate].email,
+			dataArray[iterate].username,
+			dataArray[iterate].notifications,
+			dataArray[iterate].verified,
+			dataArray[iterate].token,
+			dataArray[iterate].password,
+			dataArray[iterate].age,
+			dataArray[iterate].gender,
+			dataArray[iterate].sexualOrientation,
+			dataArray[iterate].highPriority,
+			dataArray[iterate].mediumPriority,
+			dataArray[iterate].lowPriority,
+			dataArray[iterate].city,
+			dataArray[iterate].latitude,
+			dataArray[iterate].longitude,
+			dataArray[iterate].rating,
+			dataArray[iterate].reported,
+			dataArray[iterate].temporaryBan,
+			dataArray[iterate].permanentBan
+		];
+		connection.query(stmt + `VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,values , (err) => {
 			if (err) {
 				throw err;
 			}
 			else {
-				let num = 1;
 				if (num === 1) {
 					console.log(`${num} query inserted`);
 				}
 				else {
 					console.log(`${num} queries inserted`)
 				}
-				num += 1;
-				iterate  += 1;
 			}
 		});
-		i += 1;
+		num += 1;
+		iterate += 1;
 	}
 };
 
-generateUsers();
+insert();
