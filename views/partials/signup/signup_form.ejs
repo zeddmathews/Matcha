@@ -34,7 +34,7 @@
 			<%= emailErrors.dbErrors %>
 		<% } %>
 		<br>
-		<input type="email" name="email" id="email" placeholder="Email">
+		<input type="text" name="username" id="username" placeholder="Username">
 		<br>
 		<% if (usernameErrors.fieldLength !== '') { %>
 			<%= usernameErrors.fieldLength %>
@@ -46,7 +46,7 @@
 			<%= usernameErrors.dbErrors %>
 		<% } %>
 		<br>
-		<input type="text" name="username" id="username" placeholder="Username">
+		<input type="email" name="email" id="email" placeholder="Email">
 		<br>
 		<% if (passwordErrors.fieldLength !== '') { %>
 			<%= passwordErrors.fieldLength %>
