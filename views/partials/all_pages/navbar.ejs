@@ -1,6 +1,9 @@
-<a href="/">Home</a>
-<a href="/login">Login</a>
-<a href="/signup">Signup</a>
-<a href="/profile">Profile</a>
-<a href="/users">Users</a>
-<a href="/chat">Chat</a>
+	<a href="/">Home</a>
+<% if (loginStatus === 'logged_in') { %>
+	<a href="/profile">Profile</a>
+	<a href="/users">Users</a>
+	<a href="/chat">Chat</a>
+<% } else if (loginStatus === 'logged_out') { %>
+	<a href="/login">Login</a>
+	<a href="/signup">Signup</a>
+<% } %>

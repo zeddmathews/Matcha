@@ -5,7 +5,9 @@
 		<title><%= title %></title>
 </head>
 <body>
-	<%- include('partials/all_pages/navbar') -%>
+	<%- include('partials/all_pages/navbar', {
+		loginStatus : loginStatus
+	}) -%>
 	<h3>Talk to faces</h3>
 </body>
 </html>

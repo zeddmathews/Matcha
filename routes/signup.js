@@ -236,7 +236,7 @@ router.post('/create', (req, res) => {
 					}
 					else {
 						console.log(`User created`);
-						res.redirect(`/login`);
+						res.redirect(`/signup/created`);
 					}
 				});
 				// insert into database
@@ -244,6 +244,13 @@ router.post('/create', (req, res) => {
 			// res.redirect(`/login`);
 		});
 	}
+});
+
+router.get('/created', (req, res, next) => {
+	res.render('created', {
+		title : `Account created`,
+		loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+	});
 });
 
 module.exports = router;

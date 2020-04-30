@@ -4,7 +4,8 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', (req, res, next) => {
 	res.render('profile', {
-		title: 'Profile'
+		title: 'Profile',
+		loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
 	});
 });
 

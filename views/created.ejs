@@ -8,6 +8,10 @@
 	<%- include('partials/all_pages/navbar', {
 		loginStatus : loginStatus
 	}) -%>
-	<h3>Edit your face</h3>
+	<h3>Make your face</h3>
+	<%- include('partials/created/created_data', {
+		title : title,
+		loginStatus : loginStatus,
+	}) -%>
 </body>
 </html>

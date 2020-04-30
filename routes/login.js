@@ -79,7 +79,7 @@ router.post('/attempt', (req, res, next) => {
 		console.log(`It done worked`);
 		let saltRounds = 10;
 		let dataCheck = [usernameEmail, usernameEmail];
-		let dataCheckQuery = `SELECT email, username, password FROM users WHERE email = ? OR username = ?`
+		let dataCheckQuery = `SELECT email, username, password, verified FROM users WHERE email = ? OR username = ?`
 		connection.query(dataCheckQuery, dataCheck, (err, results) => {
 			let databaseErrors = [
 				usernameEmailErrors,
@@ -104,7 +104,21 @@ router.post('/attempt', (req, res, next) => {
 				console.log(`Your face`);
 				if (bcrypt.compareSync(password, results[0].password)) {
 					console.log(`Found password mugglefucker`);
-					
+					if (results[0].verified === 0) {
+						console.log(`Oh shit`);
+						res.render('Login', {
+							title: 'Login',
+							loginStatus: req.session.userID ? 'logged_in' : 'logged_out',
+							errors: [],
+							verify: `Please verify your email address.`
+						});
+					}
+					else if (results[0].verified === 1) {
+						console.log(`Well done`);
+						console.log(results[0].username);
+						// req.session.userID = results[0].username;
+						// res.redirect('/profile');
+					}
 				}
 				else {
 					console.log(`Wrong password bitch`);

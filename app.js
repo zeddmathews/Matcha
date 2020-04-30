@@ -18,7 +18,9 @@ var app = express();
 
 const session = expressSession({
 	secret: 'much secret',
-})
+	resave : false,
+	saveUninitialized : false
+});
 
 const loginRedirect = (req, res, next) => {
 	if (!req.session.userID) {
@@ -67,10 +69,16 @@ app.use(function(err, req, res, next) {
 	// render the error page
 	res.status(err.status || 500);
 	if (res.status === 404) {
-		res.render('404', { title : '404' });
+		res.render('404', {
+			title : '404',
+			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+		});
 	}
 	else if (500) {
-		res.render('500', { title : '500' });
+		res.render('500', {
+			title : '500',
+			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+		});
 	}
 });
 

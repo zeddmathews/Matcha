@@ -4,7 +4,8 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', (req, res, next) => {
 	res.render('chat', {
-		title: 'Chat'
+		title: 'Chat',
+		loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
 	});
 });
 
