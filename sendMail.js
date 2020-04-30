@@ -10,7 +10,7 @@ var transporter = nodemailer.createTransport({
 
 var mailOptions = {
 	from :'matcha.test.mail@gmail.com',
-	to : /*'zmathews@student.wethinkcode.co.za'*//*'mathewszain@gmail.com'*/'',
+	to : '',
 	subject : '',
 	text : ''
 };
