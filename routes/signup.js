@@ -2,13 +2,17 @@ var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt');
 var connection = require('../dbc').connection;
+var transporter = require('../sendMail').transporter;
+var mailOptions = require('../sendMail').mailOptions;
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
 	res.render('signup', {
 		title: 'Signup',
 		loginStatus: req.session.userID ? 'logged_in' : 'logged_out',
-		errorMessages : [] });
+		errorMessages : [],
+		emailStatus : ``
+	});
 });
 
 router.post('/create', (req, res) => {
@@ -170,7 +174,8 @@ router.post('/create', (req, res) => {
 		res.render(`signup`, {
 			title : `Signup`,
 			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
-			errorMessages : errors
+			errorMessages : errors,
+			emailStatus : ``
 		});
 	}
 	else if (nameErrors.noErrors === `Yes` && surnameErrors.noErrors === `Yes` && usernameErrors.noErrors === `Yes` && emailErrors.noErrors === `Yes` && passwordErrors.noErrors === `Yes` && confirmPasswordErrors.noErrors === `Yes`) {
@@ -210,7 +215,8 @@ router.post('/create', (req, res) => {
 				res.render(`signup`, {
 					title : `Signup`,
 					loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
-					errorMessages : errors
+					errorMessages : errors,
+					emailStatus : ``
 				});
 			}
 			else if (emailErrors.dbErrors === `None` && usernameErrors.dbErrors === `None`) {
@@ -236,7 +242,25 @@ router.post('/create', (req, res) => {
 					}
 					else {
 						console.log(`User created`);
-						res.redirect(`/signup/created`);
+						mailOptions.to = email;
+						mailOptions.subject = 'Verification Email';
+						mailOptions.text = `You have successfully created your Matcha account.\n`
+						+ `Please click on the link below to verify your email address.\n`
+						+ `http://localhost:8888/signup/verify?email=${email}&token=${hashToken}`;
+						transporter.sendMail(mailOptions, (err, info) => {
+							if (err) {
+								throw err;
+							}
+							else {
+								console.log(`Sent from successful signup`);
+								res.render(`signup`, {
+									title : `Signup`,
+									loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+									errorMessages : [],
+									emailStatus : `Sent`
+								});
+							}
+						})
 					}
 				});
 				// insert into database
@@ -246,10 +270,44 @@ router.post('/create', (req, res) => {
 	}
 });
 
-router.get('/created', (req, res, next) => {
-	res.render('created', {
-		title : `Account created`,
-		loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+router.get('/verify', (req, res, next) => {
+	let email = req.query.email;
+	let token = req.query.token;
+	console.log(email);
+	console.log(token);
+	let signUpConfirmQuery = `SELECT email, username, token, verified FROM users WHERE email = ? AND token = ?`;
+	let signUpConfirmArray = [email, token];
+	connection.query(signUpConfirmQuery, signUpConfirmArray, (err, results) => {
+		if (err) {
+			throw err;
+		}
+		else if (results[0].verified === 1) {
+			console.log(`Your account has already been verified`);
+			res.render('verify', {
+				title : 'Already verified',
+				loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+				verifiedStatus : 0
+			});
+		}
+		else if (results[0].verified === 0) {
+			console.log(results);
+			// update verification in db
+			let updateVerifiedStatusArray = [1, results[0].email, results[0].username];
+			let updateVerifiedStatusQuery = `UPDATE users SET verified = ? WHERE email = ? AND username = ?`;
+			connection.query(updateVerifiedStatusQuery, updateVerifiedStatusArray, (err, results) => {
+				if (err) {
+					throw err;
+				}
+				else {
+					console.log(`Data successfully updated`);
+					res.render('verify', {
+						title : `Account verified`,
+						loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+						verifiedStatus : 1
+					});
+				}
+			});
+		}
 	});
 });
 

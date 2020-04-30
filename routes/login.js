@@ -117,7 +117,7 @@ router.post('/attempt', (req, res, next) => {
 						console.log(`Well done`);
 						console.log(results[0].username);
 						// req.session.userID = results[0].username;
-						// res.redirect('/profile');
+						res.redirect('/profile');
 					}
 				}
 				else {
