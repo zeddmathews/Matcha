@@ -56,8 +56,11 @@ connection.connect((err) => {
 						+ `gender VARCHAR(200),`
 						+ `sexualOrientation VARCHAR(200),`
 						+ `highPriority VARCHAR(200),`
+						+ `highPriority2 VARCHAR(200),`
 						+ `mediumPriority VARCHAR(200),`
+						+ `mediumPriority2 VARCHAR(200),`
 						+ `lowPriority VARCHAR(200),`
+						+ `lowPriority2 VARCHAR(200),`
 						+ `city VARCHAR(200),`
 						+ `latitude VARCHAR(20),`
 						+ `longitude VARCHAR(20),`
