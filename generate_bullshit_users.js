@@ -143,13 +143,14 @@ let insert = () => {
 			else {
 				if (num === 1) {
 					console.log(`${num} query inserted`);
+					num += 1;
 				}
 				else {
 					console.log(`${num} queries inserted`)
+					num += 1;
 				}
 			}
 		});
-		num += 1;
 		iterate += 1;
 	}
 };

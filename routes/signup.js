@@ -224,7 +224,7 @@ router.post('/create', (req, res) => {
 				let saltRounds = 10;
 				let hashPassword = bcrypt.hashSync(password, saltRounds);
 				let hashToken = bcrypt.hashSync(username, saltRounds);
-				let createNewUserValues = `name, surname, email, username, notifications, verified, token, password`;
+				let createNewUserValues = `name, surname, email, username, notifications, verified, token, password, firstLogin`;
 				let createNewUser = `INSERT INTO users(${createNewUserValues})`;
 				let valuesArray = [
 					name,
@@ -234,9 +234,10 @@ router.post('/create', (req, res) => {
 					1,
 					0,
 					hashToken,
-					hashPassword
+					hashPassword,
+					1
 				];
-				connection.query(createNewUser + `VALUES(?, ?, ?, ?, ?, ?, ?, ?)`, valuesArray, (err) => {
+				connection.query(createNewUser + `VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`, valuesArray, (err) => {
 					if (err) {
 						throw err;
 					}
