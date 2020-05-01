@@ -116,7 +116,7 @@ router.post('/attempt', (req, res, next) => {
 					else if (results[0].verified === 1) {
 						console.log(`Well done`);
 						console.log(results[0].username);
-						// req.session.userID = results[0].username;
+						req.session.userID = results[0].username;
 						res.redirect('/profile');
 					}
 				}

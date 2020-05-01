@@ -10,6 +10,7 @@ var connection = require('./dbc').connection;
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
+var logoutRouter = require('./routes/logout');
 var signupRouter = require('./routes/signup');
 var profileRouter = require('./routes/profile');
 var chatRouter = require('./routes/chat');
@@ -54,6 +55,7 @@ app.use('/login', /*loggedInRedirect,*/ loginRouter);
 app.use('/signup', /*loggedInRedirect,*/ signupRouter);
 app.use('/profile', /*loginRedirect,*/ profileRouter);
 app.use('/chat', /*loginRedirect,*/ chatRouter);
+app.use('/logout', /*loginRedirect,*/ logoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
