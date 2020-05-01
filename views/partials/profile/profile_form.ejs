@@ -1,0 +1,26 @@
+<% if (firstTimeSetup === 1) { %>
+	<br>
+	<label>High Priority</label>
+	<form action="/preferences" method="post">
+		<input type="radio" name="" id="" placeholder="">
+		<input type="radio" name="" id="" placeholder="">
+		<input type="radio" name="" id="" placeholder="">
+		<input type="radio" name="" id="" placeholder="">
+	</form>
+	<label>Medium Priority</label>
+	<form action="/preferences" method="post">
+		<input type="radio" name="" id="" placeholder="">
+		<input type="radio" name="" id="" placeholder="">
+		<input type="radio" name="" id="" placeholder="">
+		<input type="radio" name="" id="" placeholder="">
+	</form>
+	<label>Low Priority</label>
+	<form action="/preferences" method="post">
+		<input type="radio" name="" id="" placeholder="">
+		<input type="radio" name="" id="" placeholder="">
+		<input type="radio" name="" id="" placeholder="">
+		<input type="radio" name="" id="" placeholder="">
+	</form>
+<% } else if (firstTimeSetup === 0) { %>
+
+<% } %>
