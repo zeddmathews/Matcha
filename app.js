@@ -25,7 +25,8 @@ const session = expressSession({
 
 const loginRedirect = (req, res, next) => {
 	if (!req.session.userID) {
-		res.redirect('login');
+		console.log(req.session.userID);
+		res.redirect('/login');
 	}
 	else {
 		next();
@@ -34,7 +35,8 @@ const loginRedirect = (req, res, next) => {
 
 const loggedInRedirect = (req, res, next) => {
 	if (req.session.userID) {
-		res.redirect('index');
+		console.log(req.session.userID);
+		res.redirect('/');
 	}
 };
 
@@ -50,12 +52,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session);
 
 app.use('/', indexRouter);
-app.use('/users', /*loginRedirect,*/ usersRouter);
-app.use('/login', /*loggedInRedirect,*/ loginRouter);
-app.use('/signup', /*loggedInRedirect,*/ signupRouter);
-app.use('/profile', /*loginRedirect,*/ profileRouter);
-app.use('/chat', /*loginRedirect,*/ chatRouter);
-app.use('/logout', /*loginRedirect,*/ logoutRouter);
+app.use('/users', loginRedirect, usersRouter);
+app.use('/login', loginRouter);
+app.use('/signup', signupRouter);
+app.use('/profile', loginRedirect, profileRouter);
+app.use('/chat', loginRedirect, chatRouter);
+app.use('/logout', logoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
