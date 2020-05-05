@@ -6,7 +6,7 @@ let options = {
 	// port: 3306,
 	user: 'root',
 	password: '123456',
-	// database: 'matcha',
+	database: 'matcha',
 	// socketPath: '/var/run/mysqld/mysqld.sock',
 };
 
@@ -49,23 +49,27 @@ connection.connect((err) => {
 						+ `username VARCHAR(100) NOT NULL UNIQUE,`
 						+ `notifications INT(10) NOT NULL,`
 						+ `verified INT(10) NOT NULL,`
-						+ `token INT(10) NOT NULL,`
+						+ `token VARCHAR(200) NOT NULL,`
 						+ `password VARCHAR(200) NOT NULL,`
+						+ `firstLogin INT(10),`
 						+ `age INT(10),`
 						+ `gender VARCHAR(200),`
 						+ `sexualOrientation VARCHAR(200),`
 						+ `highPriority VARCHAR(200),`
+						+ `highPriority2 VARCHAR(200),`
 						+ `mediumPriority VARCHAR(200),`
+						+ `mediumPriority2 VARCHAR(200),`
 						+ `lowPriority VARCHAR(200),`
+						+ `lowPriority2 VARCHAR(200),`
 						+ `city VARCHAR(200),`
-						+ `latitude INT(20),`
-						+ `longitude INT(20),`
+						+ `latitude VARCHAR(20),`
+						+ `longitude VARCHAR(20),`
 						+ `currentCityLog INT(20),`
 						+ `differentCityLog INT(20),`
 						+ `rating INT(10),`
 						+ `reported INT(10),`
-						+ `temporaryBan VARCHAR(100),`
-						+ `permanentBan VARCHAR(100)`
+						+ `temporaryBan INT(10),`
+						+ `permanentBan INT(10)`
 						+ `)`, (err) => {
 							if (err) {
 								console.log(`Users table connection: ${off}`);

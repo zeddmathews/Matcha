@@ -5,11 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressSession = require('express-session');
 
-var db = require('./dbc').connection;
+var connection = require('./dbc').connection;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var loginRouter = require('./routes/login');
+var logoutRouter = require('./routes/logout');
 var signupRouter = require('./routes/signup');
 var profileRouter = require('./routes/profile');
 var chatRouter = require('./routes/chat');
@@ -18,11 +19,14 @@ var app = express();
 
 const session = expressSession({
 	secret: 'much secret',
-})
+	resave : false,
+	saveUninitialized : false
+});
 
 const loginRedirect = (req, res, next) => {
 	if (!req.session.userID) {
-		res.redirect('login');
+		console.log(req.session.userID);
+		res.redirect('/login');
 	}
 	else {
 		next();
@@ -31,7 +35,8 @@ const loginRedirect = (req, res, next) => {
 
 const loggedInRedirect = (req, res, next) => {
 	if (req.session.userID) {
-		res.redirect('index');
+		console.log(req.session.userID);
+		res.redirect('/');
 	}
 };
 
@@ -47,11 +52,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session);
 
 app.use('/', indexRouter);
-app.use('/users', /*loginRedirect,*/ usersRouter);
-app.use('/login', /*loggedInRedirect,*/ loginRouter);
-app.use('/signup', /*loggedInRedirect,*/ signupRouter);
-app.use('/profile', /*loginRedirect,*/ profileRouter);
-app.use('/chat', /*loginRedirect,*/ chatRouter);
+app.use('/users', loginRedirect, usersRouter);
+app.use('/login', loginRouter);
+app.use('/signup', signupRouter);
+app.use('/profile', loginRedirect, profileRouter);
+app.use('/chat', loginRedirect, chatRouter);
+app.use('/logout', logoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -67,10 +73,16 @@ app.use(function(err, req, res, next) {
 	// render the error page
 	res.status(err.status || 500);
 	if (res.status === 404) {
-		res.render('404');
+		res.render('404', {
+			title : '404',
+			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+		});
 	}
 	else if (500) {
-		res.render('500');
+		res.render('500', {
+			title : '500',
+			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+		});
 	}
 });
 
