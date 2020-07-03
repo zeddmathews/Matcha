@@ -4,7 +4,7 @@ var connection = require('./dbc').connection;
 
 let saltRounds = 10;
 let i = 0;
-let genderArray = ["male", "female", "transgender male", "transgender female"];
+let genderArray = ["male", "female"];
 let sexualOrientationArray = ["straight", "bisexual", "gay", "lesbian"];
 let highPriorityArray = ["food", "books", "movies", "series", "anime", "music", "games", "sport", "gardening", "hiking", "camping", "cooking", "baking,", "dancing"];
 let mediumPriorityArray = ["food", "books", "movies", "series", "anime", "music", "games", "sport", "gardening", "hiking", "camping", "cooking", "baking,", "dancing"];
@@ -48,7 +48,7 @@ let generateUsers = () => {
 		let hash = bcrypt.hashSync(faker.fake("{{internet.password}}"), saltRounds);
 		dataObject.password = hash
 		dataObject.age = Math.floor(Math.random() * 52) + 18;
-		dataObject.gender = genderArray[Math.floor(Math.random() * 3)];
+		dataObject.gender = genderArray[Math.floor(Math.random() * 2)];
 		dataObject.sexualOrientation = sexualOrientationArray[Math.floor(Math.random() * 4)];
 		if (dataObject.gender === `male` && dataObject.sexualOrientation === `lesbian`) {
 			while (dataObject.gender === `male` && dataObject.sexualOrientation === `lesbian`) {
