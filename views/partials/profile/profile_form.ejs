@@ -1,29 +1,21 @@
 <% if (firstTimeSetup === 1) { %>
 	<br>
+	<br>
 	<% if (priorityArray.length > 0) { %>
-		<% if (priorityArray[0].highPriority === 0 || priorityArray[0].highPriority2 === 0) { %>
-			<label>High Priority (Please select 2)</label>
-			<form action="/preferences" method="post">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-			</form>
-		<% } else if (priorityArray[0].highPriority === 1 && priorityArray[0].highPriority2 === 1 && (priorityArray[0].mediumPriority === 0 || priorityArray[0].mediumPriority2 === 0)) { %>
-			<label>Medium Priority (Please select 2)</label>
-			<form action="/preferences" method="post">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-			</form>
-		<% } else { %>
-			<label>Low Priority (Please select 2)</label>
-			<form action="/preferences" method="post">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
+		<% if (priorityArray[0].interest1 === 0 || priorityArray[0].interest2 === 0) { %>
+			<label>Pick some topics you are interested in click the save button whenever you're done!</label>
+			<form action="/preferences" method="post" id="interests">
+				<br>
+				<input type="radio" name="dogs" id="dog"> Dogs
+				<br>
+				<input type="radio" name="music" id="music"> Music
+				<br>
+				<input type="radio" name="movies" id="movies" value="Movies"> Movies
+				<br>
+				<input type="radio" name="cats" id="cats" value="cats"> Cats
+				<br>
+				<br>
+				<button type="submit" name="save_interests" id = "Save"> Save </button>
 			</form>
 		<% } %>
 	<% } %>

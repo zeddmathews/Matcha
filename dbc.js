@@ -15,7 +15,7 @@ let connection = mysql.createConnection(options);
 connection.connect((err) => {
 	let on = `Success`;
 	let off = `Fail`;
-	let db = `matcha`;
+	let db = `Matcha`;
 	let dbQuery = `CREATE DATABASE IF NOT EXISTS ${db}`;
 	let use = `USE ${db}`;
 	let usersTable = `CREATE TABLE IF NOT EXISTS users`;
@@ -55,12 +55,10 @@ connection.connect((err) => {
 						+ `age INT(10),`
 						+ `gender VARCHAR(200),`
 						+ `sexualOrientation VARCHAR(200),`
-						+ `highPriority VARCHAR(200),`
-						+ `highPriority2 VARCHAR(200),`
-						+ `mediumPriority VARCHAR(200),`
-						+ `mediumPriority2 VARCHAR(200),`
-						+ `lowPriority VARCHAR(200),`
-						+ `lowPriority2 VARCHAR(200),`
+						+ `interest1 VARCHAR(200),`
+						+ `interest2 VARCHAR(200),`
+						+ `interest3 VARCHAR(200),`
+						+ `interest4 VARCHAR(200),`
 						+ `city VARCHAR(200),`
 						+ `latitude VARCHAR(20),`
 						+ `longitude VARCHAR(20),`

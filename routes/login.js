@@ -79,7 +79,7 @@ router.post('/attempt', (req, res, next) => {
 		console.log(`It done worked`);
 		let saltRounds = 10;
 		let dataCheck = [usernameEmail, usernameEmail];
-		let dataCheckQuery = `SELECT email, username, password, verified, firstLogin FROM users WHERE email = ? OR username = ?`
+		let dataCheckQuery = `SELECT email, username, password, verified, firstLogin, id FROM users WHERE email = ? OR username = ?`
 		connection.query(dataCheckQuery, dataCheck, (err, results) => {
 			let databaseErrors = [
 				usernameEmailErrors,
@@ -115,7 +115,7 @@ router.post('/attempt', (req, res, next) => {
 					}
 					else if (results[0].verified === 1) {
 						console.log(`Well done`);
-						console.log(results[0].username);
+						console.log(results[0].userID);
 						req.session.userID = results[0].username;
 						if (results[0].firstLogin === 1) {
 							res.redirect('/profile');
