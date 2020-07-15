@@ -14,7 +14,7 @@ var logoutRouter = require('./routes/logout');
 var signupRouter = require('./routes/signup');
 var profileRouter = require('./routes/profile');
 var chatRouter = require('./routes/chat');
-
+var setupProfileRouter = require('./routes/setup_profile');
 var app = express();
 
 const session = expressSession({
@@ -58,6 +58,7 @@ app.use('/signup', signupRouter);
 app.use('/profile', loginRedirect, profileRouter);
 app.use('/chat', loginRedirect, chatRouter);
 app.use('/logout', logoutRouter);
+app.use('/setupProfile',loginRedirect, setupProfileRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -71,14 +72,14 @@ app.use(function(err, req, res, next) {
 	res.locals.error = req.app.get('env') === 'development' ? err : {};
 
 	// render the error page
-	res.status(err.status || 500);
-	if (res.status === 404) {
+	res.status(err.status);
+	if (err.status === 404) {
 		res.render('404', {
 			title : '404',
 			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
 		});
 	}
-	else if (500) {
+	else if (err.status === 500) {
 		res.render('500', {
 			title : '500',
 			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',

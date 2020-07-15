@@ -1,24 +1,38 @@
-<% if (firstTimeSetup === 1) { %>
+<br>
+<br>
+<label>Pick up to 4 topics that you are interested in click the save button whenever you're done!</label>
+<form action="/setupProfile/check" method="post" id="interests">
+	<br>
+	<input type="radio" name="interests1" id="dog" value="dogs"> Dogs
+	<br>
+	<input type="radio" name="interests1" id="music" value="music"> Music
+	<br>
+	<input type="radio" name="interests1" id="movies" value="movies"> Movies
+	<br>
+	<input type="radio" name="interests1" id="food" value="food"> Food
+	<br>
+	<input type="radio" name="interests2" id="books" value="books"> Books
+	<br>
+	<input type="radio" name="interests2" id="series" value="series"> Series
+	<br>
+	<input type="radio" name="interests2" id="anime" value="anime"> Anime
+	<br>
+	<input type="radio" name="interests2" id="games" value="games"> Games
+	<br>
+	<input type="radio" name="interests3" id="sport" value="sport"> Sport
+	<br>
+	<input type="radio" name="interests3" id="gardening" value="gardening"> Gardening
+	<br>
+	<input type="radio" name="interests3" id="hiking" value="hiking"> Hiking
+	<br>
+	<input type="radio" name="interests3" id="camping" value="camping"> Camping
+	<br>
+	<input type="radio" name="interests4" id="cooking" value="cooking"> Cooking
+	<br>
+	<input type="radio" name="interests4" id="baking" value="baking"> Baking
+	<br>
+	<input type="radio" name="interests4" id="dancing" value="dancing"> Dancing
 	<br>
 	<br>
-	<% if (priorityArray.length > 0) { %>
-		<% if (priorityArray[0].interest1 === 0 || priorityArray[0].interest2 === 0) { %>
-			<label>Pick some topics you are interested in click the save button whenever you're done!</label>
-			<form action="/preferences" method="post" id="interests">
-				<br>
-				<input type="radio" name="dogs" id="dog"> Dogs
-				<br>
-				<input type="radio" name="music" id="music"> Music
-				<br>
-				<input type="radio" name="movies" id="movies" value="Movies"> Movies
-				<br>
-				<input type="radio" name="cats" id="cats" value="cats"> Cats
-				<br>
-				<br>
-				<button type="submit" name="save_interests" id = "Save"> Save </button>
-			</form>
-		<% } %>
-	<% } %>
-<% } else if (firstTimeSetup === 0) { %>
-	<label>Make profile settings</label>
-<% } %>
+	<button type="submit" name="save_interests" id = "Save"> Save </button>
+</form>

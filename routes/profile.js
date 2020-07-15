@@ -2,9 +2,6 @@ var express = require('express');
 var router = express.Router();
 var connection = require('../dbc').connection;
 
-router.post('/preferences', (req, res, next) => {
-	let 
-});
 router.get('/', (req, res, next) => {
 	// check if firstTime is a thing
 	console.log(req.session.userID);
