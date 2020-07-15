@@ -6,7 +6,7 @@ router.get('/', (req, res, next) => {
 	// check if firstTime is a thing
 	console.log(req.session.userID);
 	let checkFirstLoginArray = [req.session.userID];
-	let checkFirstLoginQuery = `SELECT username, firstLogin, highPriority, highPriority2, mediumPriority, mediumPriority2, lowPriority, lowPriority2 FROM users WHERE username = ?`;
+	let checkFirstLoginQuery = `SELECT username, firstLogin, highPriority, highPriority2, mediumPriority, mediumPriority2, lowPriority, lowPriority2 FROM users WHERE id = ?`;
 	connection.query(checkFirstLoginQuery, checkFirstLoginArray, (err, results) => {
 		if (err) {
 			throw err;
