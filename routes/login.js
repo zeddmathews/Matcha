@@ -126,10 +126,10 @@ router.post('/attempt', (req, res, next) => {
 						}
 					}
 				}
-				else {
+				else if (!(bcrypt.compareSync(password, results[0].password))) {
 					console.log(`Wrong password bitch`);
 					passwordErrors.dbErrors = `Incorrect password`;
-					res.render('Login', {
+					res.render('login', {
 						title: 'Login',
 						loginStatus: req.session.userID ? 'logged_in' : 'logged_out',
 						errors: databaseErrors,
