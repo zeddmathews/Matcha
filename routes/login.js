@@ -68,7 +68,9 @@ router.post('/attempt', (req, res, next) => {
 			usernameEmailErrors,
 			passwordErrors
 		];
-		res.render('Login', {
+		console.log(passwordErrors);
+		console.log(usernameEmailErrors);
+		res.render('login', {
 			title: 'Login',
 			loginStatus: req.session.userID ? 'logged_in' : 'logged_out',
 			errors: errors,
@@ -79,7 +81,7 @@ router.post('/attempt', (req, res, next) => {
 		console.log(`It done worked`);
 		let saltRounds = 10;
 		let dataCheck = [usernameEmail, usernameEmail];
-		let dataCheckQuery = `SELECT email, username, password, verified, firstLogin FROM users WHERE email = ? OR username = ?`
+		let dataCheckQuery = `SELECT email, username, password, verified, firstLogin, id FROM users WHERE email = ? OR username = ?`
 		connection.query(dataCheckQuery, dataCheck, (err, results) => {
 			let databaseErrors = [
 				usernameEmailErrors,
@@ -91,7 +93,7 @@ router.post('/attempt', (req, res, next) => {
 			else if (results.length === 0) {
 				// console.log(`no hablo engles`);
 				usernameEmailErrors.dbErrors = `User not found`;
-				res.render('Login', {
+				res.render('login', {
 					title: 'Login',
 					loginStatus: req.session.userID ? 'logged_in' : 'logged_out',
 					errors: databaseErrors,
@@ -106,7 +108,7 @@ router.post('/attempt', (req, res, next) => {
 					console.log(`Found password mugglefucker`);
 					if (results[0].verified === 0) {
 						console.log(`Oh shit`);
-						res.render('Login', {
+						res.render('login', {
 							title: 'Login',
 							loginStatus: req.session.userID ? 'logged_in' : 'logged_out',
 							errors: [],
@@ -115,10 +117,9 @@ router.post('/attempt', (req, res, next) => {
 					}
 					else if (results[0].verified === 1) {
 						console.log(`Well done`);
-						console.log(results[0].username);
-						req.session.userID = results[0].username;
+						req.session.userID = results[0].id;
 						if (results[0].firstLogin === 1) {
-							res.redirect('/profile');
+							res.redirect('/setupProfile');
 						}
 						else if (results[0].firstLogin === 0) {
 							res.redirect('/users');
