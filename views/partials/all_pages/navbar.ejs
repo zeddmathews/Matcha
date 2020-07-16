@@ -1,10 +1,12 @@
-	<a href="/">Home</a>
+<div class="topnav" id="myTopnav">
+	<a class="active" href="/">Home</a>
 <% if (loginStatus === 'logged_in') { %>
-	<a href="/profile">Profile</a>
-	<a href="/users">Users</a>
-	<a href="/chat">Chat</a>
-	<a href="/logout">Logout</a>
+	<a class="" href="/profile">Profile</a>
+	<a class="" href="/users">Users</a>
+	<a class="" href="/chat">Chat</a>
+	<a class="" href="/logout">Logout</a>
 <% } else if (loginStatus === 'logged_out') { %>
-	<a href="/login">Login</a>
-	<a href="/signup">Signup</a>
+	<a class="" href="/login">Login</a>
+	<a class="" href="/signup">Signup</a>
 <% } %>
+</div>
