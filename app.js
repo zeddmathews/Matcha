@@ -25,7 +25,6 @@ const session = expressSession({
 
 const loginRedirect = (req, res, next) => {
 	if (!req.session.userID) {
-		console.log(req.session.userID);
 		res.redirect('/login');
 	}
 	else {

@@ -6,7 +6,7 @@ let options = {
 	// port: 3306,
 	user: 'root',
 	password: '1Clayton!',
-	database: 'Matcha',
+
 	// socketPath: '/var/run/mysqld/mysqld.sock',
 };
 

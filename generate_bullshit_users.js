@@ -10,7 +10,7 @@ let	interestsArray = ["food", "books", "movies", "series", "anime", "music", "ga
 let dataArray = [];
 
 let generateUsers = () => {
-	while (i < 100) {
+	while (i < 50) {
 		let dataObject = {
 			name : ``,
 			surname : ``,
@@ -104,7 +104,7 @@ generateUsers();
 let insert = () => {
 	let iterate = 0;
 	let num = 1;
-	while (iterate < 100) {
+	while (iterate < 50) {
 		let stmtValues = `name, surname, email, username, notifications, verified, token, password, age, gender, sexualOrientation, interest1, interest2, interest3, interest4, city, latitude, longitude, rating, reported, temporaryBan, permanentBan`;
 		let stmt = `INSERT INTO users(${stmtValues})`;
 		let values = [

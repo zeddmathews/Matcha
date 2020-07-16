@@ -9,14 +9,20 @@ router.get('/', (req, res, next) => {
 	});
 });
 router.post('/check', (req, res, next) => {
-	intersts1 = req.body.interests1
-	intersts2 = req.body.interests2
-	intersts3 = req.body.interests3
-	intersts4 = req.body.interests4
-	console.log(intersts1);
-	console.log(intersts2);
-	console.log(intersts3);
-	console.log(intersts4);
-	// put all checked options from the radio group into an array, count the array check if its not === 4 then throw error, if === 4 put informatin in database and change first login === 0 
+	interests1 = req.body.interests1
+	interests2 = req.body.interests2
+	interests3 = req.body.interests3
+	interests4 = req.body.interests4
+	let queryStuff = [interests1, interests2, interests3, interests4, `0`, req.session.userID];
+	let interestQuery = `UPDATE users SET interest1 = ?, interest2 = ?, interest3 = ?, interest4 = ?, firstLogin = ? WHERE id = ?`;
+	connection.query(interestQuery, queryStuff, (err, results)  => {
+		if (err){
+			console.log(err);
+			throw(err);
+		}
+		else{
+			res.render('/users');
+		}
+	})
 })
 module.exports = router;
