@@ -1,5 +1,4 @@
 <form action="/signup/create" method="post">
-	<div class="container">
 	<% if (errorMessages.length > 0) { %>
 		<% let nameErrors = errorMessages[0] %>
 		<% let surnameErrors = errorMessages[1] %>
@@ -88,7 +87,7 @@
 		<br>
 		<% } %>
 		<input type="submit" name="signup" id="signup" value="Signup">
-	</div>
+		<input type="submit" name="cancel" id="cancel" value="Cancel">
 </form>
 <% if (emailStatus !== '') { %>
 	<label>Your account has been successfully created and an email been sent to your given address.</label>

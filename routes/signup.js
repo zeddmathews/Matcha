@@ -102,7 +102,7 @@ router.post('/create', (req, res) => {
 	if (email.length > 0) {
 		// console.log(`emailErrors`);
 		if (!email.match(emailRegex)) {
-			emailErrors[`casing`] = `Invlaid email address.`;
+			emailErrors[`casing`] = `Invalid email address.`;
 		}
 		else if (email.match(emailRegex)) {
 			emailErrors[`noErrors`] = `Yes`;
