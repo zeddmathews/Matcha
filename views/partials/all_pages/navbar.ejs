@@ -1,12 +1,16 @@
 <div class="topnav" id="myTopnav">
-	<a class="active" href="/">Home</a>
+	<div id="myDiv">
+	<button class="tab"><a href="/">Home</a></button>
 <% if (loginStatus === 'logged_in') { %>
-	<a class="" href="/profile">Profile</a>
-	<a class="" href="/users">Users</a>
-	<a class="" href="/chat">Chat</a>
-	<a class="" href="/logout">Logout</a>
+	<button class="tab"><a href="/profile">Profile</a></button>
+	<button class="tab"><a href="/users">Users</a></button>
+	<button class="tab"><a href="/chat">Chat</a></button>
+	<div class="topnav-right">
+	<button class="tab"><a href="/logout">Logout</a></button>
 <% } else if (loginStatus === 'logged_out') { %>
-	<a class="" href="/login">Login</a>
-	<a class="" href="/signup">Signup</a>
+	<button class="tab"><a href="/login">Login</a></button>
+	<button class="tab"><a href="/signup">Signup</a></button>
 <% } %>
+</div>
+</div>
 </div>
