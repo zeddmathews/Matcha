@@ -5,7 +5,7 @@ let options = {
 	host: 'localhost', //might need to change to xammp url (192.168.64.2)
 	// port: 3306,
 	user: 'root',
-	password: '123456'
+	password: '!Sherry1'
 	// socketPath: '/var/run/mysqld/mysqld.sock',
 };
 
