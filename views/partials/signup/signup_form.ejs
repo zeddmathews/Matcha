@@ -6,24 +6,34 @@
 		<% let emailErrors = errorMessages[3] %>
 		<% let passwordErrors = errorMessages[4] %>
 		<% let confirmPasswordErrors = errorMessages[5] %>
+		<% let genderErrors = errorMessages[6] %>
+		<% let birthErrors = errorMessages[7] %>
+
+		<label><b>Name</b></label>
+		<br>
+		<input type="text" name="name" id="name" placeholder="Name">
 		<% if (nameErrors.fieldLength !== '') { %>
 			<%= nameErrors.fieldLength %>
 		<% } %>
 		<% if (nameErrors.casing !== '') { %>
 			<%= nameErrors.casing %>
 		<% } %>
+
 		<br>
-		<input type="text" name="name" id="name" placeholder="Name">
+		<label><b>Surname</b></label>
 		<br>
+		<input type="text" name="surname" id="surname" placeholder="Surname">
 		<% if (surnameErrors.fieldLength !== '') { %>
 			<%= surnameErrors.fieldLength %>
 		<% } %>
 		<% if (surnameErrors.casing !== '') { %>
 			<%= surnameErrors.casing %>
 		<% } %>
+
 		<br>
-		<input type="text" name="surname" id="surname" placeholder="Surname">
+		<label><b>Username</b></label>
 		<br>
+		<input type="text" name="username" id="username" placeholder="Username">
 		<% if (emailErrors.fieldLength !== '') { %>
 			<%= emailErrors.fieldLength %>
 		<% } %>
@@ -33,9 +43,27 @@
 		<% if (emailErrors.dbErrors !== '') { %>
 			<%= emailErrors.dbErrors %>
 		<% } %>
+		
 		<br>
-		<input type="text" name="username" id="username" placeholder="Username">
+		<label><b>Gender</b></label>
 		<br>
+		<input type="radio" name="gender" id="female" value="Female"><label>Female</label><br>
+		<input type="radio" name="gender" id="male" value="Male"><label>Male</label><br>
+		<br>
+		<% if (genderErrors.noGender !== '') { %>
+			<%= genderErrors.noGender %>
+		<% } %>
+
+		<br>
+		<label><b>Birthday</b></label>
+		<br>
+		<input type="date" name="birthday" id="birthday" placeholder="Birthday">
+		<br>
+
+		<br>
+		<label><b>Email</b></label>
+		<br>
+		<input type="email" name="email" id="email" placeholder="Email">
 		<% if (usernameErrors.fieldLength !== '') { %>
 			<%= usernameErrors.fieldLength %>
 		<% } %>
@@ -45,47 +73,80 @@
 		<% if (usernameErrors.dbErrors !== '') { %>
 			<%= usernameErrors.dbErrors %>
 		<% } %>
+
 		<br>
-		<input type="email" name="email" id="email" placeholder="Email">
+		<label><b>Password</b></label>
 		<br>
+		<input type="password" name="password" id="password" placeholder="Password">
 		<% if (passwordErrors.fieldLength !== '') { %>
 			<%= passwordErrors.fieldLength %>
 		<% } %>
 		<% if (passwordErrors.casing !== '') { %>
 			<%= passwordErrors.casing %>
 		<% } %>
+
 		<br>
-		<input type="password" name="password" id="password" placeholder="Password">
+		<label><b>Confirm Password</b></label>
 		<br>
+		<input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
 		<% if (confirmPasswordErrors.fieldLength !== '') { %>
 			<%= confirmPasswordErrors.fieldLength %>
 		<% } %>
 		<% if (confirmPasswordErrors.casing !== '') { %>
 			<%= confirmPasswordErrors.casing %>
 		<% } %>
-		<br>
-		<input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
-		<br>
 	<% } else if (errorMessages.length === 0) { %>
+		<label><b>Name</b></label>
 		<br>
 		<input type="text" name="name" id="name" placeholder="Name">
 		<br>
+
+		<br>
+		<label><b>Surname</b></label>
 		<br>
 		<input type="text" name="surname" id="surname" placeholder="Surname">
 		<br>
+
 		<br>
-		<input type="email" name="email" id="email" placeholder="Email">
-		<br>
+		<label><b>Username</b></label>
 		<br>
 		<input type="text" name="username" id="username" placeholder="Username">
 		<br>
+<!-- /////////////////////////// -->
+		<br>
+		<label><b>Gender</b></label>
+		<br>
+		<input type="radio" name="gender" id="female" value="Female"><label>Female</label><br>
+		<input type="radio" name="gender" id="male" value="Male"><label>Male</label><br>
+		<br>
+
+		<br>
+		<label><b>Birthday</b></label>
+		<br>
+		<input type="date" name="birthday" id="birthday" placeholder="Birthday">
+		<br>
+
+<!-- //////////////////////////// -->
+		<br>
+		<label><b>Email</b></label>
+		<br>
+		<input type="email" name="email" id="email" placeholder="Email">
+		<br>
+
+		<br>
+		<label><b>Password</b></label>
 		<br>
 		<input type="password" name="password" id="password" placeholder="Password">
 		<br>
+		
+		<br>
+		<label><b>Confirm Password</b></label>
 		<br>
 		<input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
 		<br>
+
 		<% } %>
+		<br>
 		<input type="submit" name="signup" id="signup" value="Signup">
 		<input type="submit" name="cancel" id="cancel" value="Cancel">
 </form>

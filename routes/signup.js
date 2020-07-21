@@ -24,10 +24,17 @@ router.post('/create', (req, res) => {
 	let password = req.body.password.trim();
 	let confirmPassword = req.body.confirmPassword.trim();
 
+	let gender = req.body.gender;
+	let birth = req.body.birthday;
+	let birthDate = new Date(birth);
+
 	let alphaRegex = /^[A-Za-z]+$/;
 	let alphaNumRegex = /^[0-9A-Za-z_.-]+$/;
 	let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+	var today = new Date();
+	let legal = 18;
+	// var curDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
 	let nameErrors = {
 		fieldLength : ``,
@@ -52,6 +59,15 @@ router.post('/create', (req, res) => {
 		casing : ``,
 		noErrors : `No`,
 		dbErrors : ``
+	};
+	let genderErrors = {
+		noGender : ``,
+		noErrors : `No`
+	};
+	let birthErrors = {
+		noDate : ``,
+		illegal : ``,
+		noErrors : `No`
 	};
 	let passwordErrors = {
 		fieldLength : ``,
@@ -129,6 +145,33 @@ router.post('/create', (req, res) => {
 		// console.log(`blankErrors`);
 		usernameErrors[`fieldLength`] = `This field cannot be blank.`;
 	}
+
+	// gender field
+	if (gender === undefined) {
+		// console.log('no gender');
+		genderErrors[`noGender`] = `This field cannot be blank.`;
+	}
+	else {
+		genderErrors[`noErrors`] = `Yes`;
+	}
+
+	// age field
+	// console.log(curDate);
+	// console.log(birthDate);
+	if (birth === ``) {
+		birthErrors[`noDate`] = `Enter a date of birth`;
+	}
+	else if (birth !== ``){
+		let age = (today.getFullYear() - birthDate.getFullYear());
+		if (age <= legal) {
+			birthErrors[`illegal`] = `You are not old enough to sign up.`;
+			// console.log(age);
+		}
+		else {
+			birthErrors[`noErrors`] = `Yes`;
+		}
+	}
+
 	// password field
 	if (password.length > 0) {
 		// console.log(`passwordErrors`);
@@ -168,7 +211,9 @@ router.post('/create', (req, res) => {
 			emailErrors,
 			usernameErrors,
 			passwordErrors,
-			confirmPasswordErrors
+			confirmPasswordErrors,
+			genderErrors,
+			birthErrors
 		];
 		// console.log(errors);
 		res.render(`signup`, {
@@ -203,6 +248,8 @@ router.post('/create', (req, res) => {
 					}
 				}
 			}
+			console.log(emailErrors);
+			console.log(usernameErrors);
 			if (emailErrors.dbErrors !== `None` || usernameErrors.dbErrors !== `None`) {
 				let errors = [
 					nameErrors,
@@ -210,7 +257,9 @@ router.post('/create', (req, res) => {
 					emailErrors,
 					usernameErrors,
 					passwordErrors,
-					confirmPasswordErrors
+					confirmPasswordErrors,
+					genderErrors,
+					birthErrors
 				];
 				res.render(`signup`, {
 					title : `Signup`,
@@ -224,7 +273,7 @@ router.post('/create', (req, res) => {
 				let saltRounds = 10;
 				let hashPassword = bcrypt.hashSync(password, saltRounds);
 				let hashToken = bcrypt.hashSync(username, saltRounds);
-				let createNewUserValues = `name, surname, email, username, notifications, verified, token, password, firstLogin`;
+				let createNewUserValues = `name, surname, email, username, notifications, verified, token, password, firstLogin, gender`;
 				let createNewUser = `INSERT INTO users(${createNewUserValues})`;
 				let valuesArray = [
 					name,
@@ -235,9 +284,10 @@ router.post('/create', (req, res) => {
 					0,
 					hashToken,
 					hashPassword,
-					1
+					1,
+					gender
 				];
-				connection.query(createNewUser + `VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`, valuesArray, (err) => {
+				connection.query(createNewUser + `VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, valuesArray, (err) => {
 					if (err) {
 						throw err;
 					}
@@ -248,7 +298,7 @@ router.post('/create', (req, res) => {
 						mailOptions.text = `You have successfully created your Matcha account.\n`
 						+ `Please click on the link below to verify your email address.\n`
 						+ `http://localhost:8888/signup/verify?email=${email}&token=${hashToken}`;
-						transporter.sendMail(mailOptions, (err, info) => {
+						transporter.sendMail(mailOptions, (err) => {
 							if (err) {
 								throw err;
 							}
