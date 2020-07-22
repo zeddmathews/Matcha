@@ -5,13 +5,16 @@
 	<title><%= title %></title>
 </head>
 <body>
-	<h3>Setup your profile before continuing</h3>
 	<%- include('partials/all_pages/navbar', {
 		loginStatus : loginStatus
 	}) -%>
-	<%- include('partials/profile/profile_form', {
-		title : title,
-		loginStatus : loginStatus
-	}) -%>
+	<h3>Setup your profile before continuing</h3>
+	<h4>click the save button whenever you're done!</h4>
+	<div class="container, center">
+		<%- include('partials/profile/profile_form', {
+			title : title,
+			loginStatus : loginStatus
+		}) -%>
+	</div>
 </body>
 </html>

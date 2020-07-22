@@ -9,11 +9,11 @@ router.get('/', (req, res, next) => {
 	});
 });
 router.post('/check', (req, res, next) => {
-	interests1 = req.body.interests1
-	interests2 = req.body.interests2
-	interests3 = req.body.interests3
-	interests4 = req.body.interests4
-	let queryStuff = [interests1, interests2, interests3, interests4, `0`, req.session.userID];
+	interests = req.body.interests;
+	sexualPref = req.body.sexualOrientation;
+	console.log(sexualPref);
+	// console.log(interests);
+	let queryStuff = [interests[0], interests[1], interests[2], interests[3], `0`, req.session.userID];
 	let interestQuery = `UPDATE users SET interest1 = ?, interest2 = ?, interest3 = ?, interest4 = ?, firstLogin = ? WHERE id = ?`;
 	connection.query(interestQuery, queryStuff, (err, results)  => {
 		if (err){

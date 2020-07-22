@@ -1,51 +1,71 @@
-<br>
-<br>
-<label>You are interested in: </label>
-<form>
+<form action="/setupProfile/check" method="post" id="interests">
+	<label>You are interested in: </label><br>
 	<input type="radio" name="sexualOrientation" id="female" value="Female"><label>Female</label><br>
 	<input type="radio" name="sexualOrientation" id="male" value="Male"><label>Male</label><br>
-</form>
-<br>
-<hr>
-<label>Pick up to 4 topics that you are interested in click the save button whenever you're done!</label>
-<form action="/setupProfile/check" method="post" id="interests">
-	<br>
-	<input type="radio" name="interests1" id="dog" value="dogs"> Dogs
-	<br>
-	<input type="radio" name="interests1" id="music" value="music"> Music
-	<br>
-	<input type="radio" name="interests1" id="movies" value="movies"> Movies
-	<br>
-	<input type="radio" name="interests1" id="food" value="food"> Food
 	<br>
 	<hr>
-	<br>
-	<input type="radio" name="interests2" id="books" value="books"> Books
-	<br>
-	<input type="radio" name="interests2" id="series" value="series"> Series
-	<br>
-	<input type="radio" name="interests2" id="anime" value="anime"> Anime
-	<br>
-	<input type="radio" name="interests2" id="games" value="games"> Games
-	<br>
-	<hr>
-	<br>
-	<input type="radio" name="interests3" id="sport" value="sport"> Sport
-	<br>
-	<input type="radio" name="interests3" id="gardening" value="gardening"> Gardening
-	<br>
-	<input type="radio" name="interests3" id="hiking" value="hiking"> Hiking
-	<br>
-	<input type="radio" name="interests3" id="camping" value="camping"> Camping
+	<label>Looking for persons from</label><br>
+	<select name="ages" id="ages">
+		<option value="18-25">18-25</option>
+		<option value="25-30">25-30</option>
+		<option value="30-35">30-35</option>
+		<option value="35+">35+</option>
+	</select>
 	<br>
 	<hr>
-	<br>
-	<input type="radio" name="interests4" id="cooking" value="cooking"> Cooking
-	<br>
-	<input type="radio" name="interests4" id="baking" value="baking"> Baking
-	<br>
-	<input type="radio" name="interests4" id="dancing" value="dancing"> Dancing
-	<br>
+	<label>Pick up to 4 topics that you are interested in</label>
+	<div>
+		<div class="interest-box">
+			<input type="checkbox" name="interests" id="dog" value="dogs"> Dogs
+			<br>
+			<input type="checkbox" name="interests" id="music" value="music"> Music
+			<br>
+			<input type="checkbox" name="interests" id="movies" value="movies"> Movies
+			<br>
+			<input type="checkbox" name="interests" id="food" value="food"> Food
+		</div>
+		<div class="interest-box">
+			<input type="checkbox" name="interests" id="books" value="books"> Books
+			<br>
+			<input type="checkbox" name="interests" id="series" value="series"> Series
+			<br>
+			<input type="checkbox" name="interests" id="anime" value="anime"> Anime
+			<br>
+			<input type="checkbox" name="interests" id="games" value="games"> Games
+		</div>
+		<div class="interest-box">
+			<input type="checkbox" name="interests" id="sport" value="sport"> Sport
+			<br>
+			<input type="checkbox" name="interests" id="gardening" value="gardening"> Gardening
+			<br>
+			<input type="checkbox" name="interests" id="hiking" value="hiking"> Hiking
+			<br>
+			<input type="checkbox" name="interests" id="camping" value="camping"> Camping
+		</div>
+		<div class="interest-box">
+			<input type="checkbox" name="interests" id="cooking" value="cooking"> Cooking
+			<br>
+			<input type="checkbox" name="interests" id="baking" value="baking"> Baking
+			<br>
+			<input type="checkbox" name="interests" id="dancing" value="dancing"> Dancing
+			<br>
+			<input type="checkbox" name="interests" id="cats" value="cats"> Cats
+		</div>
+	</div>
+	<!-- Store interests in an array -->
 	<hr>
 	<button type="submit" name="save_interests" id = "Save"> Save </button>
 </form>
+
+ <!-- <script>$(document).ready(function () {
+   $("input[name='vehicle']").change(function () {
+      var maxAllowed = 3;
+      var cnt = $("input[name='vehicle']:checked").length;
+      if (cnt > maxAllowed) 
+      {
+         $(this).prop("checked", "");
+         alert('Select maximum ' + maxAllowed + ' Levels!');
+     }
+  });
+});</script> -->
+

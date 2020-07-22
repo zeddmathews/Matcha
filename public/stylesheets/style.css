@@ -99,3 +99,9 @@ hr {
 .errorMsg {
 	color: red;
 }
+
+.interest-box {
+	float: left;
+	width: 25%;
+	flex: auto;
+}

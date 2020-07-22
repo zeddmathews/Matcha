@@ -4,16 +4,33 @@
 	<%- include('partials/all_pages/header') -%>
 	<title><%= title %></title>
 </head>
+<%- include('partials/all_pages/navbar', {
+	loginStatus : loginStatus
+}) -%>
 <body>
-	<%- include('partials/all_pages/navbar', {
-		loginStatus : loginStatus
-	}) -%>
+	<h3>Edit your face</h3>
+	<img src="/w3images/team1.jpg" alt="Jane" style="width:100%">
+	<div class="container">
+		<h2><%= name %> <%= surname %>, <%= age %> , <%= gender %></h2>
+		<p>Lives in (Country)</p>
+		<p>Looking for a (SexualOrientation) between (?-?)</p>
+		<p>Some text that describes me lorem ipsum ipsum lorem.</p>
+		<p>Interested in 
+			<%= priorityArray[0].interest1 %>, 
+			<%= priorityArray[0].interest2 %>, 
+			<%= priorityArray[0].interest3 %>, 
+			<%= priorityArray[0].interest4 %></p>
+	</div>
 	<%- include('partials/profile/profile_form', {
 		title : title,
 		loginStatus : loginStatus,
 		firstTimeSetup : firstTimeSetup,
-		priorityArray : priorityArray
+		priorityArray : priorityArray,
+		username : username,
+		name : name,
+		surname : surname,
+		age : age,
+		gender : gender
 	}) -%>
-	<h3>Edit your face</h3>
 </body>
 </html>
