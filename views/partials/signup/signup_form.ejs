@@ -12,89 +12,111 @@
 		<label><b>Name</b></label>
 		<br>
 		<input type="text" name="name" id="name" placeholder="Name">
-		<% if (nameErrors.fieldLength !== '') { %>
-			<%= nameErrors.fieldLength %>
-		<% } %>
-		<% if (nameErrors.casing !== '') { %>
-			<%= nameErrors.casing %>
-		<% } %>
+		<div class="errorMsg">
+			<% if (nameErrors.fieldLength !== '') { %>
+				<%= nameErrors.fieldLength %>
+			<% } %>
+			<% if (nameErrors.casing !== '') { %>
+				<%= nameErrors.casing %>
+			<% } %>
+		</div>
 
 		<br>
 		<label><b>Surname</b></label>
 		<br>
 		<input type="text" name="surname" id="surname" placeholder="Surname">
-		<% if (surnameErrors.fieldLength !== '') { %>
-			<%= surnameErrors.fieldLength %>
-		<% } %>
-		<% if (surnameErrors.casing !== '') { %>
-			<%= surnameErrors.casing %>
-		<% } %>
+		<div class="errorMsg">
+			<% if (surnameErrors.fieldLength !== '') { %>
+				<%= surnameErrors.fieldLength %>
+			<% } %>
+			<% if (surnameErrors.casing !== '') { %>
+				<%= surnameErrors.casing %>
+			<% } %>
+		</div>
 
 		<br>
 		<label><b>Username</b></label>
 		<br>
 		<input type="text" name="username" id="username" placeholder="Username">
-		<% if (emailErrors.fieldLength !== '') { %>
-			<%= emailErrors.fieldLength %>
-		<% } %>
-		<% if (emailErrors.casing !== '') { %>
-			<%= emailErrors.casing %>
-		<% } %>
-		<% if (emailErrors.dbErrors !== '') { %>
-			<%= emailErrors.dbErrors %>
-		<% } %>
+		<div class="errorMsg">
+			<% if (emailErrors.fieldLength !== '') { %>
+				<%= emailErrors.fieldLength %>
+			<% } %>
+			<% if (emailErrors.casing !== '') { %>
+				<%= emailErrors.casing %>
+			<% } %>
+			<% if (emailErrors.dbErrors !== '') { %>
+				<%= emailErrors.dbErrors %>
+			<% } %>
+		</div>
 		
 		<br>
 		<label><b>Gender</b></label>
 		<br>
 		<input type="radio" name="gender" id="female" value="Female"><label>Female</label><br>
 		<input type="radio" name="gender" id="male" value="Male"><label>Male</label><br>
-		<br>
-		<% if (genderErrors.noGender !== '') { %>
-			<%= genderErrors.noGender %>
-		<% } %>
+		<div class="errorMsg">
+			<% if (genderErrors.noGender !== '') { %>
+				<%= genderErrors.noGender %>
+			<% } %>
+		</div>
 
 		<br>
 		<label><b>Birthday</b></label>
 		<br>
 		<input type="date" name="birthday" id="birthday" placeholder="Birthday">
 		<br>
+		<div class="errorMsg">
+			<% if (birthErrors.noDate !== '') { %>
+				<%= birthErrors.noDate %>
+			<% } %>
+			<% if (birthErrors.illegal !== '') { %>
+				<%= birthErrors.illegal %>
+			<% } %>
+		</div>
 
 		<br>
 		<label><b>Email</b></label>
 		<br>
 		<input type="email" name="email" id="email" placeholder="Email">
-		<% if (usernameErrors.fieldLength !== '') { %>
-			<%= usernameErrors.fieldLength %>
-		<% } %>
-		<% if (usernameErrors.casing !== '') { %>
-			<%= usernameErrors.casing %>
-		<% } %>
-		<% if (usernameErrors.dbErrors !== '') { %>
-			<%= usernameErrors.dbErrors %>
-		<% } %>
+		<div class="errorMsg">
+			<% if (usernameErrors.fieldLength !== '') { %>
+				<%= usernameErrors.fieldLength %>
+			<% } %>
+			<% if (usernameErrors.casing !== '') { %>
+				<%= usernameErrors.casing %>
+			<% } %>
+			<% if (usernameErrors.dbErrors !== '') { %>
+				<%= usernameErrors.dbErrors %>
+			<% } %>
+		</div>
 
 		<br>
 		<label><b>Password</b></label>
 		<br>
 		<input type="password" name="password" id="password" placeholder="Password">
-		<% if (passwordErrors.fieldLength !== '') { %>
-			<%= passwordErrors.fieldLength %>
-		<% } %>
-		<% if (passwordErrors.casing !== '') { %>
-			<%= passwordErrors.casing %>
-		<% } %>
+		<div class="errorMsg">
+			<% if (passwordErrors.fieldLength !== '') { %>
+				<%= passwordErrors.fieldLength %>
+			<% } %>
+			<% if (passwordErrors.casing !== '') { %>
+				<%= passwordErrors.casing %>
+			<% } %>
+		</div>
 
 		<br>
 		<label><b>Confirm Password</b></label>
 		<br>
 		<input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
-		<% if (confirmPasswordErrors.fieldLength !== '') { %>
-			<%= confirmPasswordErrors.fieldLength %>
-		<% } %>
-		<% if (confirmPasswordErrors.casing !== '') { %>
-			<%= confirmPasswordErrors.casing %>
-		<% } %>
+		<div class="errorMsg">
+			<% if (confirmPasswordErrors.fieldLength !== '') { %>
+				<%= confirmPasswordErrors.fieldLength %>
+			<% } %>
+			<% if (confirmPasswordErrors.casing !== '') { %>
+				<%= confirmPasswordErrors.casing %>
+			<% } %>
+		</div>
+
 	<% } else if (errorMessages.length === 0) { %>
 		<label><b>Name</b></label>
 		<br>

@@ -95,3 +95,7 @@ hr {
 .button:hover {
   background-color: #555;
 }
+
+.errorMsg {
+	color: red;
+}

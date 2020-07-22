@@ -27,6 +27,7 @@ router.post('/create', (req, res) => {
 	let gender = req.body.gender;
 	let birth = req.body.birthday;
 	let birthDate = new Date(birth);
+	let age = 0;
 
 	let alphaRegex = /^[A-Za-z]+$/;
 	let alphaNumRegex = /^[0-9A-Za-z_.-]+$/;
@@ -79,6 +80,8 @@ router.post('/create', (req, res) => {
 		casing : ``,
 		noErrors : `No`
 	};
+
+//////////////////////////////////////////////////////////////////////
 	// name field
 	if (name.length > 0) {
 		// console.log(`nameErrors`);
@@ -162,8 +165,8 @@ router.post('/create', (req, res) => {
 		birthErrors[`noDate`] = `Enter a date of birth`;
 	}
 	else if (birth !== ``){
-		let age = (today.getFullYear() - birthDate.getFullYear());
-		if (age <= legal) {
+		age = (today.getFullYear() - birthDate.getFullYear());
+		if (age < legal) {
 			birthErrors[`illegal`] = `You are not old enough to sign up.`;
 			// console.log(age);
 		}
@@ -203,6 +206,8 @@ router.post('/create', (req, res) => {
 		// console.log(`blankErrors`);
 		passwordErrors[`fieldLength`] = `This field cannot be blank.`;
 	}
+	
+//////////////////////////////////////////////////////////////////
 	if (nameErrors.noErrors === `No` || surnameErrors.noErrors === `No` || usernameErrors.noErrors === `No` || emailErrors.noErrors === `No` || passwordErrors.noErrors === `No` || confirmPasswordErrors.noErrors === `No`) {
 		// console.log(`Found errors`);
 		let errors = [
@@ -250,6 +255,7 @@ router.post('/create', (req, res) => {
 			}
 			console.log(emailErrors);
 			console.log(usernameErrors);
+//////////////////////////////////////////////////////////
 			if (emailErrors.dbErrors !== `None` || usernameErrors.dbErrors !== `None`) {
 				let errors = [
 					nameErrors,
@@ -273,7 +279,7 @@ router.post('/create', (req, res) => {
 				let saltRounds = 10;
 				let hashPassword = bcrypt.hashSync(password, saltRounds);
 				let hashToken = bcrypt.hashSync(username, saltRounds);
-				let createNewUserValues = `name, surname, email, username, notifications, verified, token, password, firstLogin, gender`;
+				let createNewUserValues = `name, surname, email, username, notifications, verified, token, password, firstLogin, gender, age`;
 				let createNewUser = `INSERT INTO users(${createNewUserValues})`;
 				let valuesArray = [
 					name,
@@ -285,9 +291,10 @@ router.post('/create', (req, res) => {
 					hashToken,
 					hashPassword,
 					1,
-					gender
+					gender,
+					age
 				];
-				connection.query(createNewUser + `VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, valuesArray, (err) => {
+				connection.query(createNewUser + `VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, valuesArray, (err) => {
 					if (err) {
 						throw err;
 					}
