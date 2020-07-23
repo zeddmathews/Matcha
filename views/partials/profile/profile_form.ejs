@@ -1,11 +1,11 @@
-<form action="/setupProfile/check" method="post" id="interests">
-	<label>You are interested in: </label><br>
+<!-- <form action="/setupProfile/check" method="post" id="interests"> -->
+	<label>Interested in: </label><br>
 	<input type="radio" name="sexualOrientation" id="female" value="Female"><label>Female</label><br>
 	<input type="radio" name="sexualOrientation" id="male" value="Male"><label>Male</label><br>
 	<br>
 	<hr>
 	<label>Looking for persons from</label><br>
-	<select name="ages" id="ages">
+	<select name="agePreference" id="agePreference">
 		<option value="18-25">18-25</option>
 		<option value="25-30">25-30</option>
 		<option value="30-35">30-35</option>
@@ -54,18 +54,5 @@
 	</div>
 	<!-- Store interests in an array -->
 	<hr>
-	<button type="submit" name="save_interests" id = "Save"> Save </button>
-</form>
-
- <!-- <script>$(document).ready(function () {
-   $("input[name='vehicle']").change(function () {
-      var maxAllowed = 3;
-      var cnt = $("input[name='vehicle']:checked").length;
-      if (cnt > maxAllowed) 
-      {
-         $(this).prop("checked", "");
-         alert('Select maximum ' + maxAllowed + ' Levels!');
-     }
-  });
-});</script> -->
-
+	<!-- <button type="submit" name="save_interests" id = "Save"> Save </button> -->
+<!-- </form> -->

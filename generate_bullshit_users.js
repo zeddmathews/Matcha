@@ -99,6 +99,7 @@ let generateUsers = () => {
 };
 
 generateUsers();
+// generateUsers();
 // console.log(dataArray);
 
 let insert = () => {

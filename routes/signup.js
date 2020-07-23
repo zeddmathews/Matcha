@@ -156,7 +156,7 @@ router.post('/create', (req, res) => {
 	}
 	else {
 		genderErrors[`noErrors`] = `Yes`;
-	}
+	}///I think I should take that noErrors out
 
 	// age field
 	// console.log(curDate);

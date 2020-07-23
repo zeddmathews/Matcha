@@ -6,7 +6,9 @@ router.get('/', (req, res, next) => {
 	// check if firstTime is a thing
 	console.log(req.session.userID);
 	let checkFirstLoginArray = [req.session.userID];
-	let checkFirstLoginQuery = `SELECT username, firstLogin, interest1, interest2, interest3, interest4, sexualOrientation, name, surname, age, gender FROM users WHERE id = ?`;
+	let selectValues = `username, firstLogin, interest1, interest2, interest3, interest4, 
+	sexualOrientation, name, surname, age, gender`
+	let checkFirstLoginQuery = `SELECT ${selectValues} FROM users WHERE id = ?`;
 	connection.query(checkFirstLoginQuery, checkFirstLoginArray, (err, results) => {
 		// console.log(results[0].firstLogin);
 		if (err) {
@@ -18,6 +20,7 @@ router.get('/', (req, res, next) => {
 			let surname = results[0].surname;
 			let age = results[0].age;
 			let gender = results[0].gender;
+			let sexualPref = results[0].sexualOrientation;
 			// let sexualPref = results[0].sexualOrientation;
 			let priorityArray = [{
 				interest1 : '',
@@ -77,8 +80,8 @@ router.get('/', (req, res, next) => {
 					name : name,
 					surname : surname,
 					age : age,
-					gender : gender
-					// sexualPref : sexualPref
+					gender : gender,
+					sexualPref : sexualPref
 				});
 			}
 			else if (results[0].firstLogin === 1) {
