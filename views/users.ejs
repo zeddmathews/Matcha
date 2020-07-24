@@ -9,22 +9,22 @@
 }) -%>
 <body>
 	<h3>Discover more users near you</h3>
-
+<%= rowLen %>
 	<div class="row">
-
-		<div class="column">
-		  <div class="card">
-			<img src="/w3images/team1.jpg" alt="Jane" style="width:100%">
-			<div class="container">
-			  <h2>(Name + Surname + Age + Gender)Jane Doe, Age , Gender</h2>
-			  <p>Lives in (Country)</p>
-			  <p>Interested in (SexualOrientation)</p>
-			  <p>Some text that describes me lorem ipsum ipsum lorem.</p>
-			  <p>example@example.com</p>
-			  <p><button class="button" style="background-color:green;">Like?</button><button class="button" style="background-color:red;">Dislike?</button></p>
+		<% let i = 1 %>
+		<% while (i <= rowLen) { %>
+			<div class="column">
+				<div class="card">
+					<img src="/w3images/team1.jpg" alt="Jane" style="width:100%">
+					<div class="container">
+						<%- include('partials/users/users_form') -%>
+						<button class="button" style="background-color:green;">Like</button>
+						<button class="button" style="background-color:red;">Dislike</button>
+					</div>
+				</div>
 			</div>
-		  </div>
-		</div>
+			<% i++; %>
+		<% } %>
 
 		<div class="column">
 			<div class="card">

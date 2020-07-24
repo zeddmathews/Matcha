@@ -55,7 +55,7 @@ router.post('/check', (req, res, next) => {
 			throw(err);
 		}
 		else{
-			res.render('/users')
+			res.render('/users');
 			// res.render('/users',{
 			// 	title : `Setup Profile`,
 			// 	loginStatus : req.session.userID ? 'logged_in' : 'logged_out',

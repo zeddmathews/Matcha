@@ -39,12 +39,6 @@ router.post('/updatePersonal', (req, res) => {
 		noErrors : `No`,
 		dbErrors : ``
 	};
-	// let usernameErrors = {
-	// 	fieldLength : ``,
-	// 	casing : ``,
-	// 	noErrors : `No`,
-	// 	dbErrors : ``
-	// };
 
 	if (name.length > 0) {
 		// console.log(`nameErrors`);
@@ -99,8 +93,6 @@ router.post('/updatePersonal', (req, res) => {
 	// // console.log(email);
 	
 	if (nameErrors.noErrors === `No` || surnameErrors.noErrors === `No` || emailErrors.noErrors === `No`) {
-		// 	console.log(errors[1]);
-		// 	console.log(errors[2]);
 		let errors = [
 			nameErrors,
 			surnameErrors,
