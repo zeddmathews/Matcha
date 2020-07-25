@@ -3,31 +3,32 @@
 	<% let surnameErrors = errorMessages[1] %>
 	<% let emailErrors = errorMessages[2] %>
 
-	<label><b>Name</b></label>
-	<input type="text" name="name" id="name" placeholder="Name">
-	<div class="errorMsg">
+	<% userData.forEach(function(data) { %>
+		<label><b>Name</b></label>
+		<input type="text" name="name" id="name" placeholder= "Name" value="<%= data.name %>">
+		<div class="errorMsg">
 		<% if (nameErrors.fieldLength !== '') { %>
 			<%= nameErrors.fieldLength %>
 		<% } %>
 		<% if (nameErrors.casing !== '') { %>
 			<%= nameErrors.casing %>
 		<% } %>
-	</div>
+		</div>
 
-	<label><b>Surname</b></label><br>
-	<input type="text" name="surname" id="surname" placeholder="Surname">
-	<div class="errorMsg">
+		<label><b>Surname</b></label><br>
+		<input type="text" name="surname" id="surname" placeholder="Surname" value="<%= data.surname %>">
+		<div class="errorMsg">
 		<% if (surnameErrors.fieldLength !== '') { %>
 			<%= surnameErrors.fieldLength %>
-		<% } %>
-		<% if (surnameErrors.casing !== '') { %>
-			<%= surnameErrors.casing %>
-		<% } %>
-	</div>
+			<% } %>
+			<% if (surnameErrors.casing !== '') { %>
+				<%= surnameErrors.casing %>
+			<% } %>
+		</div>
 
-	<label><b>Email</b></label>
-	<input type="email" name="email" id="email" placeholder="Email">
-	<div class="errorMsg">
+		<label><b>Email</b></label>
+		<input type="email" name="email" id="email" placeholder="Email" value="<%= data.email %>">
+		<div class="errorMsg">
 		<% if (emailErrors.fieldLength !== '') { %>
 			<%= emailErrors.fieldLength %>
 		<% } %>
@@ -37,16 +38,15 @@
 		<% if (emailErrors.dbErrors !== '') { %>
 			<%= emailErrors.dbErrors %>
 		<% } %>
-	</div>
-
-<% } else if (errorMessages.length === 0) { %>	
-	<label><b>Name</b></label>
-	<input type="text" name="name" id="name" placeholder="Name">
-	<label><b>Surname</b></label><br>
-	<input type="text" name="surname" id="surname" placeholder="Surname">
-	<!-- <label><b>Username</b></label>
-		<input type="text" name="username" id="username" placeholder="Username"> -->
-	<label><b>Email</b></label>
-	<input type="email" name="email" id="email" placeholder="Email">
-		
+		</div>
+	<% }) %>
+<% } else if (errorMessages.length === 0) { %>
+	<% userData.forEach(function(data) { %>
+		<label><b>Name</b></label>
+		<input type="text" name="name" id="name" placeholder="Name" value="<%= data.name %>">
+		<label><b>Surname</b></label><br>
+		<input type="text" name="surname" id="surname" placeholder="Surname" value="<%= data.surname %>">
+		<label><b>Email</b></label>
+		<input type="email" name="email" id="email" placeholder="Email" value="<%= data.email %>">
+	<% }) %>
 <% } %>

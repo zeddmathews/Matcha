@@ -10,8 +10,8 @@
 <body>
 	<h3>Discover more users near you</h3>
 	<div class="row">
-		<% if (userData.length != 0) { %>
-			<% userData.forEach(function(data) { %>
+	<% if (userData.length != 0) { %>
+		<% userData.forEach(function(data) { %>
 		<div class="column">
 			<div class="card">
 				<img src="/w3images/team1.jpg" alt="Jane" style="width:100%">
@@ -19,15 +19,13 @@
 					<h2>@<%= data.username %>, <%= data.age %>, <%= data.gender %></h2>
 					<p>Something to write about yourself</p>
 					<p>Looking for <%= data.sexualOrientation %>s between ?-?</p>
-					<!-- <%- include('partials/users/users_form') -%> -->
 					<button class="button" style="background-color:green; width: 25%;">Like</button>
 					<button class="button" style="background-color:red; width: 25%;">Dislike</button>
 				</div>
 			</div>
 		</div>
-			<% }) %>
-		<% } %>
-
+		<% }); %>
+	<% } %>
 		<div class="column">
 			<div class="card">
 			  <img src="/w3images/team2.jpg" alt="Mike" style="width:100%">

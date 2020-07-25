@@ -3,10 +3,22 @@ var router = express.Router();
 var connection = require('../dbc').connection;
 
 router.get('/', (req, res, next) => {
-	res.render('setting', {
-		title: 'Setting',
-		loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
-		errorMessages : []
+	let id = req.session.userID;
+	let userDetails = `name, surname, email`;
+	let userDetailsQuery = `SELECT ${userDetails} FROM users WHERE id = ?`;
+	connection.query(userDetailsQuery, id, (err, results) => {
+		if (err) {
+			throw err;
+		}
+		else {
+			console.log('results are sent');
+			res.render('setting', {
+				title: 'Setting',
+				loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+				userData : results,
+				errorMessages : []
+			});
+		}
 	});
 });
 
@@ -99,10 +111,22 @@ router.post('/updatePersonal', (req, res) => {
 			emailErrors
 		];
 		console.log(errors);
-		res.render(`setting`, {
-			title : `Setting`,
-			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
-			errorMessages : errors
+		let id = req.session.userID;
+		let userDetails = `name, surname, email`;
+		let userDetailsQuery = `SELECT ${userDetails} FROM users WHERE id = ?`;
+		connection.query(userDetailsQuery, id, (err, results) => {
+			if (err) {
+				throw err;
+			}
+			else {
+				console.log('results are sent');
+				res.render('setting', {
+				title: 'Setting',
+				loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+				userData : results,
+				errorMessages : errors
+				});
+			}
 		});
 	}
 	else {
