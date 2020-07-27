@@ -1,12 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var connection = require('../dbc').connection;
+var bcrypt = require('bcrypt');
 
 router.get('/', (req, res, next) => {
 	res.render('reset_password', {
 		title: 'Reset Password',
 		loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
-		errors : []
+		errors : [],
+		emailStatus : `Sent`,
+		newPassword : ''
 	});
 });
 
@@ -42,7 +45,7 @@ router.post('/reset', (req, res, next) => {
 	else if (emailErrors.noErrors === `Yes`) {
 		let findExistingUser = "SELECT * FROM users WHERE email = ?";
 		let replacedValues = [email];
-		connection.query(findExistingUser, replacedValues, (err, results) => {
+		connection.query(findExistingUser, replacedValues, (err, result) => {
 			if (err) {
 				throw err;
 			}
@@ -60,11 +63,13 @@ router.post('/reset', (req, res, next) => {
 				res.render('reset_password', {
 					title: 'Reset Password',
 					loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
-					errors : emailErrors
+					errors : emailErrors,
+					emailStatus : `Sent`,
+					newPassword : ''
 				});
 			}
 			else if (emailErrors.dbErrors === `None`) {
-				let resetToken = '';
+				let resetToken = bcrypt.hashSync(email, 10);
 				let resetValues = [resetToken, email];
 				let resetQuery = `UPDATE users SET reset_token = ? WHERE email = ?`
 				connection.query(resetQuery, resetValues, (err) => {
@@ -76,7 +81,7 @@ router.post('/reset', (req, res, next) => {
 						mailOptions.subject = 'Reset Password';
 						mailOptions.text = `You have requested a password reset.\n`
 						+ `Please click on the link below to reset your password.\n`
-						+ `http://localhost:8888/reset_password/verify?email=${email}&token=${hashToken}`;
+						+ `http://localhost:8888/reset_password/verify?email=${email}&token=${resetToken}`;
 						transporter.sendMail(mailOptions, (err) => {
 							if (err) {
 								throw err;
@@ -87,7 +92,8 @@ router.post('/reset', (req, res, next) => {
 									title : `Signup`,
 									loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
 									errorMessages : [],
-									emailStatus : `Sent`
+									emailStatus : `Sent`,
+									newPassword : ''
 								});
 							}
 						})
@@ -98,7 +104,9 @@ router.post('/reset', (req, res, next) => {
 		res.render('reset_password', {
 			title: 'Reset Password',
 			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
-			errors : []
+			errors : [],
+			emailStatus : `Sent`,
+			newPassword : ''
 		});
 	}
 });
@@ -113,7 +121,13 @@ router.get('/verify', (req, res, next) => {
 			throw err;
 		}
 		else {
-			
+			res.render('reset_password', {
+				title: 'Reset Password',
+				loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+				errors : [],
+				emailStatus : `Sent`,
+				newPassword : 'Give'
+			});
 		}
 	});
 
