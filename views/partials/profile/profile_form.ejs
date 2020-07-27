@@ -1,37 +1,3 @@
-<<<<<<< HEAD
-<% if (firstTimeSetup === 1) { %>
-	<br>
-	<% if (priorityArray.length > 0) { %>
-		<% if (priorityArray[0].highPriority === 0 || priorityArray[0].highPriority2 === 0) { %>
-			<label>High Priority (Please select 2)</label>
-			<form action="/preferences" method="post">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-			</form>
-		<% } else if (priorityArray[0].highPriority === 1 && priorityArray[0].highPriority2 === 1 && (priorityArray[0].mediumPriority === 0 || priorityArray[0].mediumPriority2 === 0)) { %>
-			<label>Medium Priority (Please select 2)</label>
-			<form action="/preferences" method="post">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-			</form>
-		<% } else { %>
-			<label>Low Priority (Please select 2)</label>
-			<form action="/preferences" method="post">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-				<input type="radio" name="" id="" placeholder="">
-			</form>
-		<% } %>
-	<% } %>
-<% } else if (firstTimeSetup === 0) { %>
-	<label>Make profile settings</label>
-<% } %>
-=======
 <% userData.forEach(function(data) { %>
 <label><b>Biography</b></label><br>
 <% if (data.biography.length > 0) { %>
@@ -208,4 +174,3 @@
 </div>
 <hr>
 <% }); %>
->>>>>>> 597cac22e4db789f8135cc4f0c9042652266e58a

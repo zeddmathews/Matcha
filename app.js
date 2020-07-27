@@ -14,11 +14,11 @@ var logoutRouter = require('./routes/logout');
 var signupRouter = require('./routes/signup');
 var profileRouter = require('./routes/profile');
 var chatRouter = require('./routes/chat');
-var adminRouter = require('./routes/admin');
 var resetRouter = require('./routes/reset_password');
-
+var resettingRouter = require('./routes/resetting');
 var setupProfileRouter = require('./routes/setup_profile');
 var settingRouter = require('./routes/setting');
+var adminRouter = require('./routes/admin');
 var app = express();
 
 const session = expressSession({
@@ -61,11 +61,11 @@ app.use('/signup', signupRouter);
 app.use('/profile', loginRedirect, profileRouter);
 app.use('/chat', loginRedirect, chatRouter);
 app.use('/logout', logoutRouter);
-app.use('/admin', adminRouter);
-app.use('/reset_password', resetRouter);
-
 app.use('/setupProfile',loginRedirect, setupProfileRouter);
 app.use('/setting', loginRedirect, settingRouter);
+app.use('/admin', adminRouter);
+app.use('/reset_password', resetRouter);
+app.use('/resetting', resettingRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
 	next(createError(404));
@@ -78,14 +78,14 @@ app.use(function(err, req, res, next) {
 	res.locals.error = req.app.get('env') === 'development' ? err : {};
 
 	// render the error page
-	res.status(err.status || 500);
-	if (res.status === 404) {
+	res.status(err.status);
+	if (err.status === 404) {
 		res.render('404', {
 			title : '404',
 			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
 		});
 	}
-	else if (res.status === 500) {
+	else if (err.status === 500) {
 		res.render('500', {
 			title : '500',
 			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',

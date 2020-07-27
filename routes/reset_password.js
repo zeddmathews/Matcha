@@ -4,13 +4,13 @@ var connection = require('../dbc').connection;
 
 router.get('/', (req, res, next) => {
 	res.render('reset_password', {
-		title: 'Reset Password',
+		title: 'Reset Password Request',
 		loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
 		errors : []
 	});
 });
 
-router.post('/reset', (req, res, next) => {
+router.post('/resetRequest', (req, res, next) => {
 	let email = req.body.email.trim();
 
 	let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -22,7 +22,7 @@ router.post('/reset', (req, res, next) => {
 	};
 	if (email.length > 0) {
 		if (!email.match(emailRegex)) {
-			emailErrors[`casing`] = `Invlaid email address.`;
+			emailErrors[`casing`] = `Invalid email address.`;
 		}
 		else if (email.match(emailRegex)) {
 			emailErrors[`noErrors`] = `Yes`;
@@ -51,7 +51,7 @@ router.post('/reset', (req, res, next) => {
 					emailErrors.dbErrors = `None`;
 				}
 				else if (result.length > 0) {
-					if (email === result[0].email) {
+					if (email === results[0].email) {
 						emailErrors.dbErrors = `Email has already been taken`;
 					}
 				}
@@ -76,7 +76,7 @@ router.post('/reset', (req, res, next) => {
 						mailOptions.subject = 'Reset Password';
 						mailOptions.text = `You have requested a password reset.\n`
 						+ `Please click on the link below to reset your password.\n`
-						+ `http://localhost:8888/reset_password/verify?email=${email}&token=${hashToken}`;
+						+ `http://localhost:8888/reset_password/verify?email=${email}&token=${resetToken}`;
 						transporter.sendMail(mailOptions, (err) => {
 							if (err) {
 								throw err;
@@ -105,15 +105,19 @@ router.post('/reset', (req, res, next) => {
 
 router.get('/verify', (req, res, next) => {
 	let email = req.query.email;
-	let token = req.query.token;
-	let resetConfirmQuery = `SELECT token FROM users WHERE email = ? AND token = ?`;
-	let resetConfirmArray = [email, token];
+	let resetToken = req.query.token;
+	let resetConfirmQuery = `SELECT token FROM users WHERE email = ? AND resetToken = ?`;
+	let resetConfirmArray = [email, resetToken];
 	connection.query(resetConfirmQuery, resetConfirmArray, (err) => {
 		if (err) {
 			throw err;
 		}
 		else {
-			
+			// res.render('reset_password', {
+			// 	title: 'Reset Password',
+			// 	loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+			// 	resetAllowed : 1
+			// });
 		}
 	});
 

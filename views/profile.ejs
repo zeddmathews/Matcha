@@ -4,19 +4,6 @@
 	<%- include('partials/all_pages/header') -%>
 	<title><%= title %></title>
 </head>
-<<<<<<< HEAD
-<body>
-	<%- include('partials/all_pages/navbar', {
-		loginStatus : loginStatus
-	}) -%>
-	<%- include('partials/profile/profile_form', {
-		title : title,
-		loginStatus : loginStatus,
-		firstTimeSetup : firstTimeSetup,
-		priorityArray : priorityArray
-	}) -%>
-	<h3>Edit your face</h3>
-=======
 <%- include('partials/all_pages/navbar', {
 	loginStatus : loginStatus
 }) -%>
@@ -54,6 +41,5 @@
 			<%= priorityArray[0].interest3 %>, 
 			<%= priorityArray[0].interest4 %></p>
 	</div>
->>>>>>> 597cac22e4db789f8135cc4f0c9042652266e58a
 </body>
 </html>

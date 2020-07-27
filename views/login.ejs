@@ -8,20 +8,18 @@
 	<%- include('partials/all_pages/navbar', {
 		loginStatus : loginStatus
 	}) -%>
-<<<<<<< HEAD
-=======
 	<div class="container, center">
->>>>>>> 597cac22e4db789f8135cc4f0c9042652266e58a
 	<h3>Login to your face</h3>
+	<form action="/login/attempt" method="post">
 	<%- include('partials/login/login_form', {
 		title : title,
 		loginStatus : loginStatus,
 		errors : errors,
 		verify : verify
 	}) -%>
-<<<<<<< HEAD
-=======
+	<a href="/reset_password">Forgot password?</a><br>
+	<input type="submit" name="login" id="login" value="Login">
+</form>
 </div>
->>>>>>> 597cac22e4db789f8135cc4f0c9042652266e58a
 </body>
 </html>
