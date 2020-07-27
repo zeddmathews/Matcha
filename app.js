@@ -15,6 +15,7 @@ var signupRouter = require('./routes/signup');
 var profileRouter = require('./routes/profile');
 var chatRouter = require('./routes/chat');
 var adminRouter = require('./routes/admin');
+var resetRouter = require('./routes/reset_password');
 
 var app = express();
 
@@ -60,6 +61,7 @@ app.use('/profile', loginRedirect, profileRouter);
 app.use('/chat', loginRedirect, chatRouter);
 app.use('/logout', logoutRouter);
 app.use('/admin', adminRouter);
+app.use('/reset_password', resetRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -80,7 +82,7 @@ app.use(function(err, req, res, next) {
 			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
 		});
 	}
-	else if (500) {
+	else if (res.status === 500) {
 		res.render('500', {
 			title : '500',
 			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
