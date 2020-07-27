@@ -4,6 +4,7 @@
 	<%- include('partials/all_pages/header') -%>
 	<title><%= title %></title>
 </head>
+<<<<<<< HEAD
 <body>
 	<%- include('partials/all_pages/navbar', {
 		loginStatus : loginStatus
@@ -15,5 +16,44 @@
 		priorityArray : priorityArray
 	}) -%>
 	<h3>Edit your face</h3>
+=======
+<%- include('partials/all_pages/navbar', {
+	loginStatus : loginStatus
+}) -%>
+<body>
+	<h3>Edit your face</h3>
+	<img src="/w3images/team1.jpg" alt="Jane" style="width:100%">
+	<div class="container">
+		<h2><%= name %> <%= surname %>, <%= age %> , <%= gender %></h2>
+		<p>Lives in (Country)</p>
+		<p><%= biography %></p>
+		<p>Looking for
+		<% if ((gender === 'female') && (sexualOrientation === 'straight')) { %>
+		 males
+		<% } else if ((gender === 'female') && (sexualOrientation === 'lesbian')) { %>
+			females
+		<% } else if ((gender === 'male') && (sexualOrientation === 'straight')) { %>
+			females
+		<% } else if ((gender === 'male') && (sexualOrientation === 'gay')) { %>
+			males
+		<% } else if ((gender === 'transgender male') && (sexualOrientation === 'straight')) { %>
+			females
+		<% } else if ((gender === 'transgender male') && (sexualOrientation === 'gay')) { %>
+			males
+		<% } else if ((gender === 'transgender female') && (sexualOrientation === 'straight')) { %>
+			males
+		<% } else if ((gender === 'transgender female') && (sexualOrientation === 'lesbian')) { %>
+			females
+		<% } else {%>
+			females or males
+		<% } %>
+		 from <%= agePreference %></p>
+		<p>Interested in 
+			<%= priorityArray[0].interest1 %>, 
+			<%= priorityArray[0].interest2 %>, 
+			<%= priorityArray[0].interest3 %>, 
+			<%= priorityArray[0].interest4 %></p>
+	</div>
+>>>>>>> 597cac22e4db789f8135cc4f0c9042652266e58a
 </body>
 </html>

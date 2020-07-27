@@ -6,72 +6,65 @@ router.get('/', (req, res, next) => {
 	// check if firstTime is a thing
 	console.log(req.session.userID);
 	let checkFirstLoginArray = [req.session.userID];
-	let checkFirstLoginQuery = `SELECT username, firstLogin, highPriority, highPriority2, mediumPriority, mediumPriority2, lowPriority, lowPriority2 FROM users WHERE id = ?`;
+	let selectValues = `username, firstLogin, interest1, interest2, interest3, interest4, 
+	sexualOrientation, name, surname, age, gender, agePreference, biography`
+	let checkFirstLoginQuery = `SELECT ${selectValues} FROM users WHERE id = ?`;
 	connection.query(checkFirstLoginQuery, checkFirstLoginArray, (err, results) => {
 		if (err) {
 			throw err;
 		}
 		else {
+			let username = results[0].username;
+			let name = results[0].name;
+			let surname = results[0].surname;
+			let age = results[0].age;
+			let gender = results[0].gender;
+			let biography = results[0].biography;
+			let sexualOrientation = results[0].sexualOrientation;
+			let agePreference = results[0].agePreference;
 			let priorityArray = [{
-				highPriority : 0,
-				highPriority2 : 0,
-				mediumPriority : 0,
-				mediumPriority2 : 0,
-				lowPriority : 0,
-				lowPriority2 : 0
+				interest1 : '',
+				interest2 : '',
+				interest3 : '',
+				interest4 : '',
 			}];
-			console.log(results[0]);
-			if (results[0].firstLogin === 1) {
-				console.log(results[0].highPriority);
-				console.log(results[0].highPriority2);
-				console.log(results[0].mediumPriority);
-				console.log(results[0].mediumPriority2);
-				console.log(results[0].lowPriority);
-				console.log(results[0].lowPriority2);
-				if (results[0].highPriority === null) {
-					priorityArray[0].highPriority = 0;
+			// console.log(results[0].interest1);
+			// console.log(results[0].interest2);
+			// console.log(results[0].interest3);
+			// console.log(results[0].interest4);
+			// console.log(results[0].firstLogin)
+			if (results[0].firstLogin === 0) {
+				if (results[0].interest1 !== null) {
+					priorityArray[0].interest1 = results[0].interest1;
+					// console.log(results[0].interest1);
 				}
-				else if (results[0].highPriority !== null) {
-					priorityArray[0].highPriority = 1;
+				if (results[0].interest2 !== null) {
+					priorityArray[0].interest2 = results[0].interest2;
 				}
-				if (results[0].highPriority2 === null) {
-					priorityArray[0].highPriority2 = 0;
+				if (results[0].interest3 !== null) {
+					priorityArray[0].interest3 = results[0].interest3;
 				}
-				else if (results[0].highPriority2 !== null) {
-					priorityArray[0].highPriority2 = 1;
+				if (results[0].interest4 !== null) {
+					priorityArray[0].interest4 = results[0].interest4;
 				}
-				if (results[0].mediumPriority === null) {
-					priorityArray[0].mediumPriority = 0;
-				}
-				else if (results[0].mediumPriority !== null) {
-					priorityArray[0].mediumPriority = 1;
-				}
-				if (results[0].mediumPriority2 === null) {
-					priorityArray[0].mediumPriority2 = 0;
-				}
-				else if (results[0].mediumPriority2 !== null) {
-					priorityArray[0].mediumPriority2 = 1;
-				}
-				if (results[0].lowPriority === null) {
-					priorityArray[0].lowPriority = 0;
-				}
-				else if (results[0].lowPriority !== null) {
-					priorityArray[0].lowPriority = 1;
-				}
-				if (results[0].lowPriority2 === null) {
-					priorityArray[0].lowPriority2 = 0;
-				}
-				else if (results[0].lowPriority2 !== null) {
-					priorityArray[0].lowPriority2 = 1;
-				}
+				
+				console.log('Are you there?');
 				res.render('profile', {
 					title: 'Profile',
 					loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
 					firstTimeSetup : 1,
-					priorityArray : priorityArray
+					priorityArray : priorityArray,
+					username : username,
+					name : name,
+					surname : surname,
+					age : age,
+					gender : gender,
+					sexualOrientation : sexualOrientation,
+					agePreference : agePreference,
+					biography : biography
 				});
 			}
-			else if (results[0].firstLogin === 0) {
+			else if (results[0].firstLogin === 1) {
 				res.render('profile', {
 					title: 'Profile',
 					loginStatus : req.session.userID ? 'logged_in' : 'logged_out',

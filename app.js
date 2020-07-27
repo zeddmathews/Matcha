@@ -17,6 +17,8 @@ var chatRouter = require('./routes/chat');
 var adminRouter = require('./routes/admin');
 var resetRouter = require('./routes/reset_password');
 
+var setupProfileRouter = require('./routes/setup_profile');
+var settingRouter = require('./routes/setting');
 var app = express();
 
 const session = expressSession({
@@ -27,7 +29,6 @@ const session = expressSession({
 
 const loginRedirect = (req, res, next) => {
 	if (!req.session.userID) {
-		console.log(req.session.userID);
 		res.redirect('/login');
 	}
 	else {
@@ -63,6 +64,8 @@ app.use('/logout', logoutRouter);
 app.use('/admin', adminRouter);
 app.use('/reset_password', resetRouter);
 
+app.use('/setupProfile',loginRedirect, setupProfileRouter);
+app.use('/setting', loginRedirect, settingRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
 	next(createError(404));

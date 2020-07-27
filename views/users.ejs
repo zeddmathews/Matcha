@@ -4,10 +4,60 @@
 	<%- include('partials/all_pages/header') -%>
 	<title><%= title %></title>
 </head>
+<<<<<<< HEAD
 <body>
 	<%- include('partials/all_pages/navbar', {
 		loginStatus : loginStatus
 	}) -%>
 	<h3>Find your face</h3>
 </body>
+=======
+<%- include('partials/all_pages/navbar', {
+	loginStatus : loginStatus
+}) -%>
+<body>
+	<h3>Discover more users near you</h3>
+	<div class="row">
+	<% if (otherUsersData.length != 0) { %>
+		<% otherUsersData.forEach(function(data) { %>
+		<div class="column">
+			<div class="card">
+				<img src="" alt="Your face" style="width:100%">
+				<div class="container">
+					<h2>@<%= data.username %>, <%= data.age %>, <%= data.gender %></h2>
+					<a href="#">View Profile</a>
+					<%= data.sexualOrientation %>
+					<p><%= data.biography %></p>
+					<p> I am <%= data.sexualOrientation %> and looking for 
+					<% if ((data.gender === 'female') && (data.sexualOrientation === 'straight')) { %>
+						males
+					<% } else if ((data.gender === 'female') && (data.sexualOrientation === 'lesbian')) { %>
+						females
+					<% } else if ((data.gender === 'male') && (data.sexualOrientation === 'straight')) { %>
+						females
+					<% } else if ((data.gender === 'male') && (data.sexualOrientation === 'gay')) { %>
+						males
+					<% } else if ((data.gender === 'transgender male') && (data.sexualOrientation === 'straight')) { %>
+						females
+					<% } else if ((data.gender === 'transgender male') && (data.sexualOrientation === 'gay')) { %>
+						males
+					<% } else if ((data.gender === 'transgender female') && (data.sexualOrientation === 'straight')) { %>
+						males
+					<% } else if ((data.gender === 'transgender female') && (data.sexualOrientation === 'lesbian')) { %>
+						females
+					<% } else { %>
+						females or males
+					<% } %>
+						from <%= data.agePreference %></p>
+					<button class="button" style="background-color:green; width: 25%;">Like</button>
+					<button class="button" style="background-color:red; width: 25%;">Dislike</button>
+				</div>
+			</div>
+		</div>
+		<% }); %>
+	<% } %>
+	</div>
+</body>
+<script src="/scripts/menu.js"></script>
+>>>>>>> 597cac22e4db789f8135cc4f0c9042652266e58a
 </html>

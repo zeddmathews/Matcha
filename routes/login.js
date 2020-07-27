@@ -119,17 +119,17 @@ router.post('/attempt', (req, res, next) => {
 						console.log(`Well done`);
 						req.session.userID = results[0].id;
 						if (results[0].firstLogin === 1) {
-							res.redirect('/profile');
+							res.redirect('/setupProfile');
 						}
 						else if (results[0].firstLogin === 0) {
 							res.redirect('/users');
 						}
 					}
 				}
-				else if (!(bcrypt.compareSync(password, results[0].password))) {
+				else {
 					console.log(`Wrong password bitch`);
 					passwordErrors.dbErrors = `Incorrect password`;
-					res.render('login', {
+					res.render('Login', {
 						title: 'Login',
 						loginStatus: req.session.userID ? 'logged_in' : 'logged_out',
 						errors: databaseErrors,

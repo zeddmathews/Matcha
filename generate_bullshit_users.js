@@ -4,15 +4,13 @@ var connection = require('./dbc').connection;
 
 let saltRounds = 10;
 let i = 0;
-let genderArray = ["male", "female", "transgender male", "transgender female"];
+let genderArray = ["male", "female"];
 let sexualOrientationArray = ["straight", "bisexual", "gay", "lesbian"];
-let highPriorityArray = ["food", "books", "movies", "series", "anime", "music", "games", "sport", "gardening", "hiking", "camping", "cooking", "baking,", "dancing"];
-let mediumPriorityArray = ["food", "books", "movies", "series", "anime", "music", "games", "sport", "gardening", "hiking", "camping", "cooking", "baking,", "dancing"];
-let lowPriorityArray = ["food", "books", "movies", "series", "anime", "music", "games", "sport", "gardening", "hiking", "camping", "cooking", "baking,", "dancing"];
+let	interestsArray = ["food", "books", "movies", "series", "anime", "music", "games", "sport", "gardening", "hiking", "camping", "cooking", "baking,", "dancing"];
 let dataArray = [];
 
 let generateUsers = () => {
-	while (i < 10) {
+	while (i < 50) {
 		let dataObject = {
 			name : ``,
 			surname : ``,
@@ -25,13 +23,10 @@ let generateUsers = () => {
 			age : ``,
 			gender : ``,
 			sexualOrientation : ``,
-			highPriority : ``,
-			highPriority2 : ``,
-			mediumPriority : ``,
-			mediumPriority2 : ``,
-			lowPriority : ``,
-			lowPriority2 : ``,
-			city : ``,
+			interest1:``,
+			interest2:``,
+			interest3:``,
+			interest4:``,
 			latitude : ``,
 			longitude : ``,
 			rating : ``,
@@ -48,7 +43,7 @@ let generateUsers = () => {
 		let hash = bcrypt.hashSync(faker.fake("{{internet.password}}"), saltRounds);
 		dataObject.password = hash
 		dataObject.age = Math.floor(Math.random() * 52) + 18;
-		dataObject.gender = genderArray[Math.floor(Math.random() * 3)];
+		dataObject.gender = genderArray[Math.floor(Math.random() * 2)];
 		dataObject.sexualOrientation = sexualOrientationArray[Math.floor(Math.random() * 4)];
 		if (dataObject.gender === `male` && dataObject.sexualOrientation === `lesbian`) {
 			while (dataObject.gender === `male` && dataObject.sexualOrientation === `lesbian`) {
@@ -60,45 +55,23 @@ let generateUsers = () => {
 				dataObject.sexualOrientation = sexualOrientationArray[Math.floor(Math.random() * 4)];
 			}
 		}
-		if (dataObject.gender === `transgender male` && dataObject.sexualOrientation === `lesbian`) {
-			while (dataObject.gender === `transgender male` && dataObject.sexualOrientation === `lesbian`) {
-				dataObject.sexualOrientation = sexualOrientationArray[Math.floor(Math.random() * 4)];
+		dataObject.interest1 = interestsArray[Math.floor(Math.random() * 14)];
+		dataObject.interest2 = interestsArray[Math.floor(Math.random() * 14)];
+		if (dataObject.interest2 === dataObject.interest1) {
+			while (dataObject.interest2 === dataObject.interest1) {
+				dataObject.interest2 = interestsArray[Math.floor(Math.random() * 14)];
 			}
 		}
-		if (dataObject.gender === `transgender female` && dataObject.sexualOrientation === `gay`) {
-			while (dataObject.gender === `transgender female` && dataObject.sexualOrientation === `gay`) {
-				dataObject.sexualOrientation = sexualOrientationArray[Math.floor(Math.random() * 4)];
+		dataObject.interest3 = interestsArray[Math.floor(Math.random() * 14)];
+		if (dataObject.interest3 === dataObject.interest1 || dataObject.interest3 === dataObject.interest2) {
+			while (dataObject.interest3 === dataObject.interest1 || dataObject.interest3 === dataObject.interest2) {
+				dataObject.interest3 = interestsArray[Math.floor(Math.random() * 14)];
 			}
 		}
-		dataObject.highPriority = highPriorityArray[Math.floor(Math.random() * 14)];
-		dataObject.highPriority2 = highPriorityArray[Math.floor(Math.random() * 14)];
-		if (dataObject.highPriority2 === dataObject.highPriority) {
-			while (dataObject.highPriority2 === dataObject.highPriority) {
-				dataObject.highPriority2 = highPriorityArray[Math.floor(Math.random() * 14)];
-			}
-		}
-		dataObject.mediumPriority = mediumPriorityArray[Math.floor(Math.random() * 14)];
-		if (dataObject.mediumPriority === dataObject.highPriority || dataObject.mediumPriority === dataObject.highPriority2) {
-			while (dataObject.mediumPriority === dataObject.highPriority || dataObject.mediumPriority === dataObject.highPriority2) {
-				dataObject.mediumPriority = mediumPriorityArray[Math.floor(Math.random() * 14)];
-			}
-		}
-		dataObject.mediumPriority2 = mediumPriorityArray[Math.floor(Math.random() * 14)];
-		if (dataObject.mediumPriority2 === dataObject.mediumPriority || dataObject.mediumPriority2 === dataObject.highPriority2 || dataObject.mediumPriority2 === dataObject.highPriority) {
-			while (dataObject.mediumPriority2 === dataObject.mediumPriority || dataObject.mediumPriority2 === dataObject.highPriority2 || dataObject.mediumPriority2 === dataObject.highPriority) {
-				dataObject.mediumPriority2 = mediumPriorityArray[Math.floor(Math.random() * 14)];
-			}
-		}
-		dataObject.lowPriority = lowPriorityArray[Math.floor(Math.random() * 14)];
-		if (dataObject.lowPriority === dataObject.mediumPriority2 || dataObject.lowPriority === dataObject.mediumPriority || dataObject.lowPriority === dataObject.highPriority2 || dataObject.lowPriority === dataObject.highPriority) {
-			while (dataObject.lowPriority === dataObject.mediumPriority2 || dataObject.lowPriority === dataObject.mediumPriority || dataObject.lowPriority === dataObject.highPriority2 || dataObject.lowPriority === dataObject.highPriority) {
-				dataObject.lowPriority = lowPriorityArray[Math.floor(Math.random() * 14)];
-			}
-		}
-		dataObject.lowPriority2 = lowPriorityArray[Math.floor(Math.random() * 14)];
-		if (dataObject.lowPriority2 === dataObject.lowPriority || dataObject.lowPriority2 === dataObject.mediumPriority2 || dataObject.lowPriority2 === dataObject.mediumPriority || dataObject.lowPriority2 === dataObject.highPriority2 || dataObject.lowPriority2 === dataObject.highPriority) {
-			while (dataObject.lowPriority2 === dataObject.lowPriority || dataObject.lowPriority2 === dataObject.mediumPriority2 || dataObject.lowPriority2 === dataObject.mediumPriority || dataObject.lowPriority2 === dataObject.highPriority2 || dataObject.lowPriority2 === dataObject.highPriority) {
-				dataObject.lowPriority2 = lowPriorityArray[Math.floor(Math.random() * 14)];
+		dataObject.interest4 = interestsArray[Math.floor(Math.random() * 14)];
+		if (dataObject.interest4 === dataObject.interest3 || dataObject.interest4 === dataObject.interest2 || dataObject.interest4 === dataObject.interest1) {
+			while (dataObject.interest4 === dataObject.interest3 || dataObject.interest4 === dataObject.interest2 || dataObject.interest4 === dataObject.interest1) {
+				dataObject.interest4 = interestsArray[Math.floor(Math.random() * 14)];
 			}
 		}
 		dataObject.city = faker.fake("{{address.city}}");
@@ -126,13 +99,14 @@ let generateUsers = () => {
 };
 
 generateUsers();
+// generateUsers();
 // console.log(dataArray);
 
 let insert = () => {
 	let iterate = 0;
 	let num = 1;
-	while (iterate < 10) {
-		let stmtValues = `name, surname, email, username, notifications, verified, token, password, age, gender, sexualOrientation, highPriority, highPriority2, mediumPriority, mediumPriority2, lowPriority, lowPriority2, city, latitude, longitude, rating, reported, temporaryBan, permanentBan`;
+	while (iterate < 50) {
+		let stmtValues = `name, surname, email, username, notifications, verified, token, password, age, gender, sexualOrientation, interest1, interest2, interest3, interest4, city, latitude, longitude, rating, reported, temporaryBan, permanentBan`;
 		let stmt = `INSERT INTO users(${stmtValues})`;
 		let values = [
 			dataArray[iterate].name,
@@ -146,12 +120,10 @@ let insert = () => {
 			dataArray[iterate].age,
 			dataArray[iterate].gender,
 			dataArray[iterate].sexualOrientation,
-			dataArray[iterate].highPriority,
-			dataArray[iterate].highPriority2,
-			dataArray[iterate].mediumPriority,
-			dataArray[iterate].mediumPriority2,
-			dataArray[iterate].lowPriority,
-			dataArray[iterate].lowPriority2,
+			dataArray[iterate].interest1,
+			dataArray[iterate].interest2,
+			dataArray[iterate].interest3,
+			dataArray[iterate].interest4,
 			dataArray[iterate].city,
 			dataArray[iterate].latitude,
 			dataArray[iterate].longitude,
@@ -160,7 +132,7 @@ let insert = () => {
 			dataArray[iterate].temporaryBan,
 			dataArray[iterate].permanentBan
 		];
-		connection.query(stmt + `VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, values, (err) => {
+		connection.query(stmt + `VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, values, (err) => {
 			if (err) {
 				throw err;
 			}
