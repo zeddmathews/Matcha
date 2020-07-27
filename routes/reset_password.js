@@ -8,7 +8,7 @@ router.get('/', (req, res, next) => {
 		title: 'Reset Password',
 		loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
 		errors : [],
-		emailStatus : `Sent`,
+		emailStatus : '',
 		newPassword : ''
 	});
 });
@@ -64,7 +64,7 @@ router.post('/reset', (req, res, next) => {
 					title: 'Reset Password',
 					loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
 					errors : emailErrors,
-					emailStatus : `Sent`,
+					emailStatus : '',
 					newPassword : ''
 				});
 			}
@@ -105,7 +105,7 @@ router.post('/reset', (req, res, next) => {
 			title: 'Reset Password',
 			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
 			errors : [],
-			emailStatus : `Sent`,
+			emailStatus : '',
 			newPassword : ''
 		});
 	}
@@ -125,7 +125,7 @@ router.get('/verify', (req, res, next) => {
 				title: 'Reset Password',
 				loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
 				errors : [],
-				emailStatus : `Sent`,
+				emailStatus : '',
 				newPassword : 'Give'
 			});
 		}
