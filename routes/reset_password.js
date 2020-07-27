@@ -64,7 +64,35 @@ router.post('/reset', (req, res, next) => {
 				});
 			}
 			else if (emailErrors.dbErrors === `None`) {
-				
+				let resetToken = '';
+				let resetValues = [resetToken, email];
+				let resetQuery = `UPDATE users SET reset_token = ? WHERE email = ?`
+				connection.query(resetQuery, resetValues, (err) => {
+					if (err) {
+						throw err;
+					}
+					else {
+						mailOptions.to = email;
+						mailOptions.subject = 'Reset Password';
+						mailOptions.text = `You have requested a password reset.\n`
+						+ `Please click on the link below to reset your password.\n`
+						+ `http://localhost:8888/reset_password/verify?email=${email}&token=${hashToken}`;
+						transporter.sendMail(mailOptions, (err) => {
+							if (err) {
+								throw err;
+							}
+							else {
+								console.log(`Sent from successful signup`);
+								res.render(`signup`, {
+									title : `Signup`,
+									loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+									errorMessages : [],
+									emailStatus : `Sent`
+								});
+							}
+						})
+					}
+				});
 			}
 		});
 		res.render('reset_password', {
@@ -73,6 +101,10 @@ router.post('/reset', (req, res, next) => {
 			errors : []
 		});
 	}
+});
+
+router.get('verify', (req, res, next) => {
+	let email = req.query.email;
 });
 
 module.exports = router;
