@@ -103,8 +103,20 @@ router.post('/reset', (req, res, next) => {
 	}
 });
 
-router.get('verify', (req, res, next) => {
+router.get('/verify', (req, res, next) => {
 	let email = req.query.email;
+	let token = req.query.token;
+	let resetConfirmQuery = `SELECT token FROM users WHERE email = ? AND token = ?`;
+	let resetConfirmArray = [email, token];
+	connection.query(resetConfirmQuery, resetConfirmArray, (err) => {
+		if (err) {
+			throw err;
+		}
+		else {
+			
+		}
+	});
+
 });
 
 module.exports = router;
