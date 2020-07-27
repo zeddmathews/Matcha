@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt');
-var connection = require('../dbc').connection;
+// var connection = require('../dbc').connection;
 var transporter = require('../sendMail').transporter;
 var mailOptions = require('../sendMail').mailOptions;
+var mysql = require('../test');
+var utils = require('../utils');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
@@ -185,89 +187,101 @@ router.post('/create', (req, res) => {
 		let findExistingUser = "SELECT * FROM users WHERE username = ? OR email = ?";
 		let replacedValues = [username, email];
 		// let findUsername = [username];
-		connection.query(findExistingUser, replacedValues, (err, result) => {
-			if (err) {
-				throw err;
-			}
-			else {
-				if (result.length === 0) {
-					emailErrors.dbErrors = `None`;
-					usernameErrors.dbErrors = `None`;
-				}
-				else if (result.length > 0) {
-					if (email === result[0].email) {
-						emailErrors.dbErrors = `Email has already been taken`;
-					}
-					if (username === result[0].username) {
-						usernameErrors.dbErrors = `Username has already been taken`;
-					}
-				}
-			}
-			if (emailErrors.dbErrors !== `None` || usernameErrors.dbErrors !== `None`) {
-				let errors = [
-					nameErrors,
-					surnameErrors,
-					emailErrors,
-					usernameErrors,
-					passwordErrors,
-					confirmPasswordErrors
-				];
-				res.render(`signup`, {
-					title : `Signup`,
-					loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
-					errorMessages : errors,
-					emailStatus : ``
-				});
-			}
-			else if (emailErrors.dbErrors === `None` && usernameErrors.dbErrors === `None`) {
-				console.log(`Shit be working`);
-				let saltRounds = 10;
-				let hashPassword = bcrypt.hashSync(password, saltRounds);
-				let hashToken = bcrypt.hashSync(username, saltRounds);
-				let createNewUserValues = `name, surname, email, username, notifications, verified, token, password, firstLogin`;
-				let createNewUser = `INSERT INTO users(${createNewUserValues})`;
-				let valuesArray = [
-					name,
-					surname,
-					email,
-					username,
-					1,
-					0,
-					hashToken,
-					hashPassword,
-					1
-				];
-				connection.query(createNewUser + `VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`, valuesArray, (err) => {
-					if (err) {
-						throw err;
-					}
-					else {
-						console.log(`User created`);
-						mailOptions.to = email;
-						mailOptions.subject = 'Verification Email';
-						mailOptions.text = `You have successfully created your Matcha account.\n`
-						+ `Please click on the link below to verify your email address.\n`
-						+ `http://localhost:8888/signup/verify?email=${email}&token=${hashToken}`;
-						transporter.sendMail(mailOptions, (err, info) => {
-							if (err) {
-								throw err;
-							}
-							else {
-								console.log(`Sent from successful signup`);
-								res.render(`signup`, {
-									title : `Signup`,
-									loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
-									errorMessages : [],
-									emailStatus : `Sent`
-								});
-							}
-						})
-					}
-				});
-				// insert into database
-			}
-			// res.redirect(`/login`);
-		});
+		// const findExists = await mysql.connection();
+		let data = {
+			username,
+			email
+		};
+		const areYouReal = utils.findExists(data);
+		if (areYouReal.length > 0) {
+			console.log('kak useless');
+		}
+		else {
+			console.log('still kak useless');
+		}
+	// 	connection.query(findExistingUser, replacedValues, (err, result) => {
+	// 		if (err) {
+	// 			throw err;
+	// 		}
+	// 		else {
+	// 			if (result.length === 0) {
+	// 				emailErrors.dbErrors = `None`;
+	// 				usernameErrors.dbErrors = `None`;
+	// 			}
+	// 			else if (result.length > 0) {
+	// 				if (email === result[0].email) {
+	// 					emailErrors.dbErrors = `Email has already been taken`;
+	// 				}
+	// 				if (username === result[0].username) {
+	// 					usernameErrors.dbErrors = `Username has already been taken`;
+	// 				}
+	// 			}
+	// 		}
+	// 		if (emailErrors.dbErrors !== `None` || usernameErrors.dbErrors !== `None`) {
+	// 			let errors = [
+	// 				nameErrors,
+	// 				surnameErrors,
+	// 				emailErrors,
+	// 				usernameErrors,
+	// 				passwordErrors,
+	// 				confirmPasswordErrors
+	// 			];
+	// 			res.render(`signup`, {
+	// 				title : `Signup`,
+	// 				loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+	// 				errorMessages : errors,
+	// 				emailStatus : ``
+	// 			});
+	// 		}
+	// 		else if (emailErrors.dbErrors === `None` && usernameErrors.dbErrors === `None`) {
+	// 			console.log(`Shit be working`);
+	// 			let saltRounds = 10;
+	// 			let hashPassword = bcrypt.hashSync(password, saltRounds);
+	// 			let hashToken = bcrypt.hashSync(username, saltRounds);
+	// 			let createNewUserValues = `name, surname, email, username, notifications, verified, token, password, firstLogin`;
+	// 			let createNewUser = `INSERT INTO users(${createNewUserValues})`;
+	// 			let valuesArray = [
+	// 				name,
+	// 				surname,
+	// 				email,
+	// 				username,
+	// 				1,
+	// 				0,
+	// 				hashToken,
+	// 				hashPassword,
+	// 				1
+	// 			];
+	// 			connection.query(createNewUser + `VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)`, valuesArray, (err) => {
+	// 				if (err) {
+	// 					throw err;
+	// 				}
+	// 				else {
+	// 					console.log(`User created`);
+	// 					mailOptions.to = email;
+	// 					mailOptions.subject = 'Verification Email';
+	// 					mailOptions.text = `You have successfully created your Matcha account.\n`
+	// 					+ `Please click on the link below to verify your email address.\n`
+	// 					+ `http://localhost:8888/signup/verify?email=${email}&token=${hashToken}`;
+	// 					transporter.sendMail(mailOptions, (err, info) => {
+	// 						if (err) {
+	// 							throw err;
+	// 						}
+	// 						else {
+	// 							console.log(`Sent from successful signup`);
+	// 							res.render(`signup`, {
+	// 								title : `Signup`,
+	// 								loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
+	// 								errorMessages : [],
+	// 								emailStatus : `Sent`
+	// 							});
+	// 						}
+	// 					})
+	// 				}
+	// 			});
+	// 			// insert into database
+	// 		}
+	// 		// res.redirect(`/login`);
+	// 	});
 	}
 });
 

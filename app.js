@@ -5,7 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressSession = require('express-session');
 
-var connection = require('./dbc').connection;
+// var connection = require('./dbc').connection;
+var mysql = require('./test').connection;
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -80,7 +81,7 @@ app.use(function(err, req, res, next) {
 			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
 		});
 	}
-	else if (500) {
+	else if (res.status === 500) {
 		res.render('500', {
 			title : '500',
 			loginStatus : req.session.userID ? 'logged_in' : 'logged_out',

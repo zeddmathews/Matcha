@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt');
-var connection = require('../dbc').connection;
+// var connection = require('../dbc').connection;
+var mysql = require('../test');
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
