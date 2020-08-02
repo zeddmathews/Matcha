@@ -5,7 +5,7 @@ var bcrypt = require('bcrypt');
 
 router.get('/', (req, res, next) => {
 	res.render('reset_password', {
-		title: 'Reset Password Request',
+		title: 'Reset Password',
 		loginStatus : req.session.userID ? 'logged_in' : 'logged_out',
 		errors : [],
 		emailStatus : '',
@@ -25,7 +25,7 @@ router.post('/resetRequest', (req, res, next) => {
 	};
 	if (email.length > 0) {
 		if (!email.match(emailRegex)) {
-			emailErrors[`casing`] = `Invalid email address.`;
+			emailErrors[`casing`] = `Invlaid email address.`;
 		}
 		else if (email.match(emailRegex)) {
 			emailErrors[`noErrors`] = `Yes`;
@@ -54,7 +54,7 @@ router.post('/resetRequest', (req, res, next) => {
 					emailErrors.dbErrors = `None`;
 				}
 				else if (result.length > 0) {
-					if (email === results[0].email) {
+					if (email === result[0].email) {
 						emailErrors.dbErrors = `Email has already been taken`;
 					}
 				}
@@ -113,9 +113,9 @@ router.post('/resetRequest', (req, res, next) => {
 
 router.get('/verify', (req, res, next) => {
 	let email = req.query.email;
-	let resetToken = req.query.token;
-	let resetConfirmQuery = `SELECT token FROM users WHERE email = ? AND resetToken = ?`;
-	let resetConfirmArray = [email, resetToken];
+	let token = req.query.token;
+	let resetConfirmQuery = `SELECT token FROM users WHERE email = ? AND token = ?`;
+	let resetConfirmArray = [email, token];
 	connection.query(resetConfirmQuery, resetConfirmArray, (err) => {
 		if (err) {
 			throw err;
