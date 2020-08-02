@@ -138,7 +138,13 @@ router.get('/', (req, res, next) => {
 				userData : userDataArray
 			});
 		}
+
 	});
 });
+
+// router.post('/rating', (req, res) => {
+// 	username = req.body.username;
+// 	console.log(username);
+// });
 
 module.exports = router;

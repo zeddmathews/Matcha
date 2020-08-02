@@ -4,7 +4,7 @@
 		<div class="card">
 			<img src="/images/male.jpg" alt="Your face" style="height: 200px;">
 			<div class="container">
-				<h2>@<%= data.username %></h2>
+				<h2 id="username">@<%= data.username %></h2>
 				<a href="#" onclick="showProfile()">View Profile</a>
 				<!-- <button onclick="showProfile()">View Profile</button> -->
 				<!-- <%= data.sexualOrientation %> -->
@@ -32,9 +32,9 @@
 					</div>
 			</div>
 			<div id="myModal" class="modal">
-				<span class="close">&times;</span>
+				<span class="close" onclick="closeProfile">&times;</span>
 					<img src="/w3images/team1.jpg" alt="Jane" style="width:100%">
-					<div class="container">
+					<div class="container" id="">
 						<h2><%= data.name %> <%= data.surname %>, <%= data.age %> , <%= data.gender %></h2>
 						<p>Lives in (Country)</p>
 						<p><%= data.biography %></p>
